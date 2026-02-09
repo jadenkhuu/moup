@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #09090b; /* Deep zinc-950 for text */
