@@ -23,7 +23,6 @@ export default function MovieGrid({ initialMovies }: MovieGridProps) {
 
   const loadMoreMovies = async () => {
     const nextPage = page + 1;
-    // Assuming you updated fetchMovies to accept a category or use default
     const newMovies = await fetchMovies(nextPage);
     
     if (newMovies?.length > 0) {
