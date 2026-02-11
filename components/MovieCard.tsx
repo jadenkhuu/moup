@@ -12,7 +12,6 @@ import {
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider, // Ideally move this to layout.tsx as discussed
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 

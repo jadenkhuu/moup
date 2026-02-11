@@ -2,8 +2,9 @@
 
 import { Movie, TMDBResponse } from '@/types/tmdb';
 
+const accessToken = process.env.TMDB_ACCESS_TOKEN;
+
 export async function fetchMovies(page: number): Promise<Movie[]> {
-  const accessToken = process.env.TMDB_ACCESS_TOKEN;
   
   if (!accessToken) {
     console.error("TMDB Access Token is missing");
