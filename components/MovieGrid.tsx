@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { fetchMovies } from '@/app/API'; // Make sure this path matches where your server action is
+import { fetchMovies } from '@/app/API';
 import { Movie } from '@/types/tmdb';
-import { MovieCard } from './MovieCard'; // Import the new component
+import { MovieCard } from './MovieCard'; 
 
 interface MovieGridProps {
   initialMovies: Movie[];

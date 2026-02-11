@@ -13,7 +13,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #09090b; /* Deep zinc-950 for text */
+  --foreground: #09090b;
   --card: #ffffff;
   --card-foreground: #09090b;
   --popover: #ffffff;
