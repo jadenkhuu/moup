@@ -9,6 +9,23 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+  .minimal-scrollbar::-webkit-scrollbar {
+    width: 6px; /* Very thin width */
+    height: 6px; /* Very thin height (for horizontal) */
+  }
+
+  .minimal-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* See-through track */
+  }
+
+  .minimal-scrollbar::-webkit-scrollbar-thumb {
+    background-color: theme('colors.zinc.800'); /* Darker by default to blend in */
+    border-radius: 9999px; /* Pill shape */
+  }
+
+  .minimal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: theme('colors.zinc.700'); /* User requested Zinc-700 on hover/interact */
+  }
 }
 
 :root {

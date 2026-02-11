@@ -36,7 +36,7 @@ export default function MovieGrid({ initialMovies }: MovieGridProps) {
   };
 
   return (
-    <div className="p-5 pb-32">
+    <div className="p-5 pr-3.25 pb-32">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
