@@ -1,5 +1,5 @@
 import { Movie } from '@/types/tmdb';
-import { Calendar, BookmarkPlus, Star } from 'lucide-react'; // Kept Star for the button icon
+import { Calendar, BookmarkPlus, Star, Info, Eye } from 'lucide-react'; // Kept Star for the button icon
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
@@ -32,6 +32,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
             fill
             className="object-cover duration-500"
             sizes="160px"
+            unoptimized
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-zinc-600 text-xs">
@@ -71,6 +72,23 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         {/* Footer: Action Buttons */}
         <CardFooter className="p-4 pt-0 flex justify-end gap-2">
             
+            {/* More Info Tooltip */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  size="icon" 
+                  variant="secondary"
+                  className="h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50"
+                >
+                  <Info size={16} strokeWidth={2.5} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>More Info</p>
+              </TooltipContent>
+            </Tooltip>
+
+
             {/* Watchlist Tooltip */}
             <Tooltip>
               <TooltipTrigger asChild>
@@ -95,7 +113,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
                   variant="secondary"
                   className="h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-emerald-400 hover:bg-emerald-400/10 border border-zinc-700/50"
                 >
-                  <Star size={16} strokeWidth={2.5} />
+                  <Eye size={16} strokeWidth={2.5} />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
