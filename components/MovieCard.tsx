@@ -1,5 +1,5 @@
 import { Movie } from '@/types/tmdb';
-import { Calendar, BookmarkPlus, Star, Info, Eye } from 'lucide-react'; // Kept Star for the button icon
+import { Calendar, BookmarkPlus, Star, Info, Eye } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {

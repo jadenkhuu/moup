@@ -1,10 +1,17 @@
-import { fetchMovies } from '@/app/API';
 import MovieGrid from '@/components/MovieGrid';
+import SearchBar from '@/components/SearchBar';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { Search } from "lucide-react"
+import { fetchMovies, searchMovies } from '@/app/API';
 
-export default async function Home() {
-  const initialMovies = await fetchMovies(1);
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const resolvedParams = await searchParams;
+  const query = resolvedParams.q || '';
+  const initialMovies = query ? await searchMovies(query, 1) : await fetchMovies(1);
 
   return (
     /* 1. OUTER WRAPPER
@@ -19,12 +26,7 @@ export default async function Home() {
         - z-40: Ensures it stays above if we add anything else.
       */}
       <div className="z-40 bg-zinc-900/80 backdrop-blur-md p-4 border-b border-zinc-800">
-          <InputGroup>
-            <InputGroupAddon>
-              <Search className='text-zinc-400'/>
-            </InputGroupAddon>
-            <InputGroupInput placeholder="Search..." />
-          </InputGroup>
+          <SearchBar />
       </div>
 
       {/* 3. SCROLLABLE AREA
@@ -33,9 +35,8 @@ export default async function Home() {
         - minimal-scrollbar: The scrollbar will now live inside here (starting below the search bar).
       */}
       <div className="flex-1 overflow-y-auto minimal-scrollbar">
-        <MovieGrid initialMovies={initialMovies} />
+        <MovieGrid initialMovies={initialMovies} searchQuery={query} />      
       </div>
-
     </div>
   );
 }
