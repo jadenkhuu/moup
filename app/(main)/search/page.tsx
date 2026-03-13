@@ -1,8 +1,7 @@
 import MovieGrid from '@/components/MovieGrid';
 import SearchBar from '@/components/SearchBar';
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
-import { Search } from "lucide-react"
 import { fetchMovies, searchMovies } from '@/app/API';
+import { createClient } from '@/lib/supabase/server';
 
 export default async function SearchPage({
   searchParams,
@@ -11,7 +10,17 @@ export default async function SearchPage({
 }) {
   const resolvedParams = await searchParams;
   const query = resolvedParams.q || '';
-  const initialMovies = query ? await searchMovies(query, 1) : await fetchMovies(1);
+
+  const [initialMovies, supabase] = await Promise.all([
+    query ? searchMovies(query, 1) : fetchMovies(1),
+    createClient(),
+  ]);
+
+  const { data: watchlistRows } = await supabase
+    .from('watchlist')
+    .select('movie_id');
+
+  const watchlistIds = watchlistRows?.map((row) => row.movie_id) ?? [];
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden relative pt-20">
@@ -19,13 +28,8 @@ export default async function SearchPage({
           <SearchBar />
       </div>
 
-      {/* 3. SCROLLABLE AREA
-        - flex-1: Fills ALL remaining space below the search bar.
-        - overflow-y-auto: Only THIS section scrolls.
-        - minimal-scrollbar: The scrollbar will now live inside here (starting below the search bar).
-      */}
       <div className="flex-1 overflow-y-auto minimal-scrollbar">
-        <MovieGrid initialMovies={initialMovies} searchQuery={query} />      
+        <MovieGrid initialMovies={initialMovies} searchQuery={query} watchlistIds={watchlistIds} />      
       </div>
     </div>
   );

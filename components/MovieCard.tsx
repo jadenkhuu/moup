@@ -1,21 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { Movie } from '@/types/tmdb';
-import { Calendar, BookmarkPlus, Info, Eye, } from 'lucide-react';
+import { Calendar, BookmarkPlus, BookmarkCheck, Info, CirclePlus } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { MovieModal } from './MovieModal';
+import { addToWatchlist, removeFromWatchlist } from '@/app/(main)/watchlist/actions';
 
 interface MovieCardProps {
   movie: Movie;
+  isInWatchlist?: boolean;
+  dateAdded?: string;
 }
 
-export const MovieCard = ({ movie }: MovieCardProps) => {
-  // The card only manages whether its specific modal is open or closed
+export const MovieCard = ({ movie, isInWatchlist = false, dateAdded }: MovieCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inWatchlist, setInWatchlist] = useState(isInWatchlist);
+  const [isPending, startTransition] = useTransition();
+
+  const handleWatchlistToggle = () => {
+    const newState = !inWatchlist;
+    setInWatchlist(newState);
+
+    startTransition(async () => {
+      const result = newState
+        ? await addToWatchlist(movie)
+        : await removeFromWatchlist(movie.id);
+
+      if (result?.error) {
+        setInWatchlist(!newState);
+      }
+    });
+  };
 
   return (
     <>
@@ -53,6 +72,14 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
                   </span>
                 </div>
               )}
+              {dateAdded && (
+                <div className="flex items-center gap-1 text-zinc-600">
+                  <span className="text-xs">·</span>
+                  <span className="text-xs">
+                    Added {new Date(dateAdded).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </span>
+                </div>
+              )}
             </div>
           </CardHeader>
 
@@ -61,28 +88,8 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
               {movie.overview || "No overview available."}
             </p>
           </CardContent>
-          {/* <CardContent className="px-4 py-1 flex-1 overflow-y-auto minimal-scrollbar">
-            <p className="text-zinc-400 text-xs leading-relaxed">
-              {movie.overview || "No overview available."}
-            </p>
-          </CardContent> */}
 
           <CardFooter className="p-4 pt-0 flex justify-end gap-2">
-              {/* <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    size="icon" 
-                    variant="secondary"
-                    onClick={() => setIsModalOpen(true)}
-                    className="h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50"
-                  >
-                    <Info size={16} strokeWidth={2.5} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>More Info</p>
-                </TooltipContent>
-              </Tooltip> */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a 
@@ -100,23 +107,38 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
                   </a>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>View on TMDB</p>
+                  <p>View more on TMDB</p>
                 </TooltipContent>
               </Tooltip>
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button size="icon" variant="secondary" className="h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50">
-                    <BookmarkPlus size={16} strokeWidth={2.5} />
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    disabled={isPending}
+                    onClick={handleWatchlistToggle}
+                    className={
+                      inWatchlist
+                        ? "h-8 w-8 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/30 transition-colors"
+                        : "h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50"
+                    }
+                  >
+                    {inWatchlist
+                      ? <BookmarkCheck size={16} strokeWidth={2.5} />
+                      : <BookmarkPlus size={16} strokeWidth={2.5} />
+                    }
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent><p>Add to Watchlist</p></TooltipContent>
+                <TooltipContent>
+                  <p>{inWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist'}</p>
+                </TooltipContent>
               </Tooltip>
 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button size="icon" variant="secondary" className="h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-emerald-400 hover:bg-emerald-400/10 border border-zinc-700/50">
-                    <Eye size={16} strokeWidth={2.5} />
+                    <CirclePlus size={16} strokeWidth={2.5} />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent><p>Mark as Watched</p></TooltipContent>
@@ -125,7 +147,6 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         </div>
       </Card>
 
-      {/* Render the clean, separated Modal component */}
       <MovieModal 
         movie={movie} 
         isOpen={isModalOpen} 
