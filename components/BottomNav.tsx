@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, User, Star, ListPlus, Swords, Eye } from "lucide-react";
+import { Search, User, Star, ListPlus, Swords, Eye, CircleCheck } from "lucide-react";
 
 export const BottomNav = () => {
   const pathname = usePathname();
@@ -35,7 +35,7 @@ export const BottomNav = () => {
         {/* Watched */}
         <NavButton 
           href="/watched" 
-          icon={<Eye size={20} strokeWidth={2} />} 
+          icon={<CircleCheck size={20} strokeWidth={2} />} 
           label="Watched" 
           active={pathname === "/watched"} 
         />

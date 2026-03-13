@@ -30,11 +30,7 @@ export const MovieModal = ({ movie, isOpen, onOpenChange }: MovieModalProps) => 
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      {/* MODAL WRAPPER
-        max-w-5xl (approx 1024px width) and h-[85vh] (85% of screen height) 
-        keeps it massive but leaves a safe margin for your navigation bar.
-      */}
-      <DialogContent className="bg-zinc-950 border-zinc-800 text-zinc-100 w-[95vw] sm:max-w-5xl md:max-w-6xl h-[85vh] p-0 flex flex-col overflow-hidden rounded-xl">
+      <DialogContent className="bg-zinc-950 border-zinc-800 text-zinc-100 max-w-[800px] sm:max-w-5xl md:max-w-6xl h-[85vh] p-0 flex flex-col overflow-hidden rounded-xl">
         <DialogTitle className="sr-only">{movie.title} Details</DialogTitle>
         <DialogDescription className="sr-only">Detailed information about {movie.title}</DialogDescription>
         
@@ -44,14 +40,10 @@ export const MovieModal = ({ movie, isOpen, onOpenChange }: MovieModalProps) => 
           </div>
         ) : details ? (
           <div className="flex flex-col sm:flex-row h-full w-full overflow-hidden">
-            
-            {/* 1. LEFT COLUMN: Vertically Scrollable Images 
-                w-1/3 limits the width. overflow-y-auto allows infinite scrolling for images.
-            */}
             <div className="w-full sm:w-2/5 md:w-1/3 p-6 flex flex-col gap-5 overflow-y-auto minimal-scrollbar border-r border-zinc-800/50 bg-zinc-900/20 shrink-0">
               
               {/* Main Poster */}
-              {details.poster_path ? (
+              {/* {details.poster_path ? (
                 <div className="relative w-full aspect-[2/3] rounded-lg overflow-hidden border border-zinc-800 shadow-lg shrink-0">
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
@@ -66,10 +58,9 @@ export const MovieModal = ({ movie, isOpen, onOpenChange }: MovieModalProps) => 
                 <div className="w-full aspect-[2/3] flex items-center justify-center bg-zinc-800 text-zinc-600 rounded-lg shrink-0 border border-zinc-700">
                   No Poster
                 </div>
-              )}
+              )} */}
 
-              {/* Additional Image: Backdrop */}
-              {details.backdrop_path && (
+              {/* {details.backdrop_path && (
                 <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-zinc-800 shadow-lg shrink-0">
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${details.backdrop_path}`}
@@ -80,7 +71,7 @@ export const MovieModal = ({ movie, isOpen, onOpenChange }: MovieModalProps) => 
                     unoptimized
                   />
                 </div>
-              )}
+              )} */}
             </div>
 
             {/* 2. RIGHT COLUMN: Details & Blurb Box */}

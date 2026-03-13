@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Movie } from '@/types/tmdb';
-import { Calendar, BookmarkPlus, Info, Eye } from 'lucide-react';
+import { Calendar, BookmarkPlus, Info, Eye, } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -61,9 +61,14 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
               {movie.overview || "No overview available."}
             </p>
           </CardContent>
+          {/* <CardContent className="px-4 py-1 flex-1 overflow-y-auto minimal-scrollbar">
+            <p className="text-zinc-400 text-xs leading-relaxed">
+              {movie.overview || "No overview available."}
+            </p>
+          </CardContent> */}
 
           <CardFooter className="p-4 pt-0 flex justify-end gap-2">
-              <Tooltip>
+              {/* <Tooltip>
                 <TooltipTrigger asChild>
                   <Button 
                     size="icon" 
@@ -76,6 +81,26 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>More Info</p>
+                </TooltipContent>
+              </Tooltip> */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a 
+                    href={`https://www.themoviedb.org/movie/${movie.id}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button 
+                      size="icon" 
+                      variant="secondary"
+                      className="h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50"
+                    >
+                      <Info size={16} strokeWidth={2.5} />
+                    </Button>
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View on TMDB</p>
                 </TooltipContent>
               </Tooltip>
 
