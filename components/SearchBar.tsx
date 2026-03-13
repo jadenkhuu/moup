@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect, useRef, useTransition } from 'react';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { Search } from "lucide-react";
 
@@ -10,10 +10,13 @@ export default function SearchBar() {
   const searchParams = useSearchParams();
   
   const [query, setQuery] = useState(searchParams.get('q') || '');
+  const hasInteracted = useRef(false);
 
   const [isPending, startTransition] = useTransition();
 
-useEffect(() => {
+  useEffect(() => {
+    if (!hasInteracted.current) return;
+
     const delayDebounceFn = setTimeout(() => {
       startTransition(() => {
         if (query.trim()) {
@@ -35,7 +38,10 @@ useEffect(() => {
       <InputGroupInput 
         placeholder="Search movies" 
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          hasInteracted.current = true;
+          setQuery(e.target.value);
+        }}
       />
     </InputGroup>
   );

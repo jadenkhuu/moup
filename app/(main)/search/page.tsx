@@ -14,17 +14,7 @@ export default async function SearchPage({
   const initialMovies = query ? await searchMovies(query, 1) : await fetchMovies(1);
 
   return (
-    /* 1. OUTER WRAPPER
-      - flex-1 flex-col: Takes up all available space.
-      - overflow-hidden: Prevents the whole page from scrolling.
-      - pt-20: Pushes everything down to clear the absolute Global Header.
-    */
     <div className="flex-1 flex flex-col overflow-hidden relative pt-20">
-      
-      {/* 2. SEARCH BAR
-        - No longer 'sticky'. It just sits at the top of our column.
-        - z-40: Ensures it stays above if we add anything else.
-      */}
       <div className="z-40 bg-zinc-900/80 backdrop-blur-md p-4 border-b border-zinc-800">
           <SearchBar />
       </div>
