@@ -43,8 +43,8 @@ export default async function WatchlistMovieGrid() {
   }));
 
   return (
-    <div className="p-5 pr-3.25 pb-32">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div className="p-3 pr-2 sm:p-5 sm:pr-4 pb-32">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
         {movies.map(({ movie, dateAdded }) => (
           <MovieCard key={movie.id} movie={movie} isInWatchlist={true} dateAdded={dateAdded} />
         ))}

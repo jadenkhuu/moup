@@ -23,8 +23,8 @@ export default async function SearchPage({
   const watchlistIds = watchlistRows?.map((row) => row.movie_id) ?? [];
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden relative pt-20">
-      <div className="z-40 bg-zinc-900/80 backdrop-blur-md p-4 border-b border-zinc-800">
+    <div className="flex-1 flex flex-col overflow-hidden relative pt-14 sm:pt-20">
+      <div className="z-40 bg-zinc-900/80 backdrop-blur-md p-4 py-2 sm:p-4 border-b border-zinc-800">
           <SearchBar />
       </div>
 

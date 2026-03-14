@@ -50,13 +50,13 @@ export default function MovieGrid({ initialMovies, searchQuery = '', watchlistId
   };
 
   return (
-    <div className="p-5 pr-3.25 pb-32">
+    <div className="p-3 pr-2 sm:p-5 sm:pr-4 pb-32">
       {movies.length === 0 ? (
         <div className="flex justify-center text-zinc-400 mt-10">
           No results found for "{searchQuery}"
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
           {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} isInWatchlist={watchlistSet.has(movie.id)} />
           ))}

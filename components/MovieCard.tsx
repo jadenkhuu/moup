@@ -38,9 +38,9 @@ export const MovieCard = ({ movie, isInWatchlist = false, dateAdded }: MovieCard
 
   return (
     <>
-      <Card className="h-60 w-full flex flex-row overflow-hidden bg-zinc-900/50 backdrop-blur-sm border-zinc-800/50 hover:border-zinc-700 transition-all group gap-0 p-0">
+      <Card className="h-44 sm:h-60 w-full flex flex-row overflow-hidden bg-zinc-900/50 backdrop-blur-sm border-zinc-800/50 hover:border-zinc-700 transition-all group gap-0 p-0">
         
-        <div className="relative w-40 shrink-0 bg-zinc-800 border-r border-zinc-800/50">
+        <div className="relative w-28 sm:w-40 shrink-0 bg-zinc-800 border-r border-zinc-800/50">
           {movie.poster_path ? (
             <Image
               src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
@@ -58,8 +58,8 @@ export const MovieCard = ({ movie, isInWatchlist = false, dateAdded }: MovieCard
         </div>
 
         <div className="flex flex-col flex-1 min-w-0">
-          <CardHeader className="p-4 pb-2">
-            <CardTitle className="text-zinc-100 font-bold text-lg line-clamp-1 leading-tight group-hover:text-white transition-colors">
+          <CardHeader className="p-3 pb-1 sm:p-4 sm:pb-2">
+            <CardTitle title={movie.title} className="text-zinc-100 font-bold text-sm sm:text-lg leading-tight group-hover:text-white transition-colors">
               {movie.title}
             </CardTitle>
             
@@ -83,13 +83,13 @@ export const MovieCard = ({ movie, isInWatchlist = false, dateAdded }: MovieCard
             </div>
           </CardHeader>
 
-          <CardContent className="px-4 py-1 flex-1">
-            <p className="text-zinc-400 text-xs line-clamp-5 leading-relaxed">
+          <CardContent className="px-3 py-1 sm:px-4 flex-1 min-h-0 overflow-hidden">
+            <p className="text-zinc-400 text-xs line-clamp-3 sm:line-clamp-5 leading-relaxed">
               {movie.overview || "No overview available."}
             </p>
           </CardContent>
 
-          <CardFooter className="p-4 pt-0 flex justify-end gap-2">
+          <CardFooter className="p-3 pt-2 sm:p-4 sm:pt-4 flex justify-end gap-2 shrink-0">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a 

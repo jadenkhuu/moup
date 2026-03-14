@@ -31,7 +31,7 @@ export default function SearchBar() {
   }, [query, router]);
 
   return (
-    <InputGroup>
+    <InputGroup className="h-8">
       <InputGroupAddon>
         <Search className='text-zinc-400'/>
       </InputGroupAddon>
