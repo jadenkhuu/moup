@@ -16,11 +16,13 @@ export default async function SearchPage({
     createClient(),
   ]);
 
-  const { data: watchlistRows } = await supabase
-    .from('watchlist')
-    .select('movie_id');
+  const [{ data: watchlistRows }, { data: watchedRows }] = await Promise.all([
+    supabase.from('watchlist').select('movie_id'),
+    supabase.from('watched').select('movie_id'),
+  ]);
 
-  const watchlistIds = watchlistRows?.map((row) => row.movie_id) ?? [];
+  const watchlistIds = watchlistRows?.map((row: { movie_id: number }) => row.movie_id) ?? [];
+  const watchedIds = watchedRows?.map((row: { movie_id: number }) => row.movie_id) ?? [];
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden relative pt-14 sm:pt-20">
@@ -29,7 +31,7 @@ export default async function SearchPage({
       </div>
 
       <div className="flex-1 overflow-y-auto minimal-scrollbar">
-        <MovieGrid initialMovies={initialMovies} searchQuery={query} watchlistIds={watchlistIds} />      
+        <MovieGrid initialMovies={initialMovies} searchQuery={query} watchlistIds={watchlistIds} watchedIds={watchedIds} />      
       </div>
     </div>
   );

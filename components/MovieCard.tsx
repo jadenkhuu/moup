@@ -2,23 +2,28 @@
 
 import { useState, useTransition } from 'react';
 import { Movie } from '@/types/tmdb';
-import { Calendar, BookmarkPlus, BookmarkCheck, Info, CirclePlus } from 'lucide-react';
+import { Calendar, BookmarkPlus, BookmarkCheck, Info, CirclePlus, CircleCheck } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { MovieModal } from './MovieModal';
+import { RatingDialog } from './RatingDialog';
 import { addToWatchlist, removeFromWatchlist } from '@/app/(main)/watchlist/actions';
+import { addToWatched } from '@/app/(main)/watched/actions';
 
 interface MovieCardProps {
   movie: Movie;
   isInWatchlist?: boolean;
+  isWatched?: boolean;
   dateAdded?: string;
 }
 
-export const MovieCard = ({ movie, isInWatchlist = false, dateAdded }: MovieCardProps) => {
+export const MovieCard = ({ movie, isInWatchlist = false, isWatched: initialIsWatched = false, dateAdded }: MovieCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRatingOpen, setIsRatingOpen] = useState(false);
   const [inWatchlist, setInWatchlist] = useState(isInWatchlist);
+  const [isWatched, setIsWatched] = useState(initialIsWatched);
   const [isPending, startTransition] = useTransition();
 
   const handleWatchlistToggle = () => {
@@ -137,11 +142,23 @@ export const MovieCard = ({ movie, isInWatchlist = false, dateAdded }: MovieCard
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button size="icon" variant="secondary" className="h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-emerald-400 hover:bg-emerald-400/10 border border-zinc-700/50">
-                    <CirclePlus size={16} strokeWidth={2.5} />
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    onClick={() => setIsRatingOpen(true)}
+                    className={
+                      isWatched
+                        ? "h-8 w-8 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 transition-colors"
+                        : "h-8 w-8 rounded-lg bg-zinc-800 text-zinc-400 hover:text-emerald-400 hover:bg-emerald-400/10 border border-zinc-700/50"
+                    }
+                  >
+                    {isWatched
+                      ? <CircleCheck size={16} strokeWidth={2.5} />
+                      : <CirclePlus size={16} strokeWidth={2.5} />
+                    }
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent><p>Mark as Watched</p></TooltipContent>
+                <TooltipContent><p>{isWatched ? 'Watched' : 'Mark as Watched'}</p></TooltipContent>
               </Tooltip>
           </CardFooter>
         </div>
@@ -151,6 +168,18 @@ export const MovieCard = ({ movie, isInWatchlist = false, dateAdded }: MovieCard
         movie={movie} 
         isOpen={isModalOpen} 
         onOpenChange={setIsModalOpen} 
+      />
+
+      <RatingDialog
+        open={isRatingOpen}
+        onOpenChange={setIsRatingOpen}
+        movieTitle={movie.title}
+        onConfirm={(rating) => {
+          startTransition(async () => {
+            const result = await addToWatched(movie, rating);
+            if (!result?.error) setIsWatched(true);
+          });
+        }}
       />
     </>
   );

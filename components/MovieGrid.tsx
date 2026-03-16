@@ -10,12 +10,14 @@ interface MovieGridProps {
   initialMovies: Movie[];
   searchQuery?: string;
   watchlistIds?: number[];
+  watchedIds?: number[];
 }
 
-export default function MovieGrid({ initialMovies, searchQuery = '', watchlistIds = [] }: MovieGridProps) {
+export default function MovieGrid({ initialMovies, searchQuery = '', watchlistIds = [], watchedIds = [] }: MovieGridProps) {
   const [movies, setMovies] = useState<Movie[]>(initialMovies);
   const [page, setPage] = useState(1);
   const watchlistSet = new Set(watchlistIds);
+  const watchedSet = new Set(watchedIds);
 
   const [hasMore, setHasMore] = useState(initialMovies.length === 20);
 
@@ -58,7 +60,7 @@ export default function MovieGrid({ initialMovies, searchQuery = '', watchlistId
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
           {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} isInWatchlist={watchlistSet.has(movie.id)} />
+            <MovieCard key={movie.id} movie={movie} isInWatchlist={watchlistSet.has(movie.id)} isWatched={watchedSet.has(movie.id)} />
           ))}
         </div>
       )}

@@ -2,16 +2,19 @@
 
 import { useState, useTransition } from 'react';
 import { Movie } from '@/types/tmdb';
-import { Calendar, BookmarkPlus, BookmarkCheck, Info, CirclePlus } from 'lucide-react';
+import { Calendar, BookmarkPlus, BookmarkCheck, Info, CirclePlus, CircleCheck, Star } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { RatingDialog } from './RatingDialog';
 import { addToWatchlist, removeFromWatchlist } from '@/app/(main)/watchlist/actions';
+import { addToWatched } from '@/app/(main)/watched/actions';
 
 interface WatchedMovieCardProps {
   movie: Movie;
   rank: number;
+  stars?: number;
   isInWatchlist?: boolean;
 }
 
@@ -22,8 +25,10 @@ function rankColor(rank: number) {
   return 'text-zinc-400';
 }
 
-export const WatchedMovieCard = ({ movie, rank, isInWatchlist = false }: WatchedMovieCardProps) => {
+export const WatchedMovieCard = ({ movie, rank, stars = 0, isInWatchlist = false }: WatchedMovieCardProps) => {
   const [inWatchlist, setInWatchlist] = useState(isInWatchlist);
+  const [isWatched, setIsWatched] = useState(true);
+  const [isRatingOpen, setIsRatingOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const handleWatchlistToggle = () => {
@@ -73,12 +78,26 @@ export const WatchedMovieCard = ({ movie, rank, isInWatchlist = false }: Watched
             <p title={movie.title} className="text-zinc-100 font-semibold text-sm leading-snug group-hover:text-white transition-colors">
               {movie.title}
             </p>
-            {movie.release_date && (
-              <div className="flex items-center gap-1 text-zinc-500">
-                <Calendar size={10} />
-                <span className="text-[11px]">{new Date(movie.release_date).getFullYear()}</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              {movie.release_date && (
+                <div className="flex items-center gap-1 text-zinc-500">
+                  <Calendar size={10} />
+                  <span className="text-[11px]">{new Date(movie.release_date).getFullYear()}</span>
+                </div>
+              )}
+              {stars > 0 && (
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star
+                      key={s}
+                      size={10}
+                      strokeWidth={1.5}
+                      className={s <= stars ? 'fill-amber-400 text-amber-400' : 'fill-transparent text-zinc-600'}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
@@ -132,16 +151,36 @@ export const WatchedMovieCard = ({ movie, rank, isInWatchlist = false }: Watched
                 <Button
                   size="icon"
                   variant="secondary"
-                  className="h-7 w-7 rounded-lg bg-zinc-800 text-zinc-400 hover:text-emerald-400 hover:bg-emerald-400/10 border border-zinc-700/50"
+                  onClick={() => setIsRatingOpen(true)}
+                  className={
+                    isWatched
+                      ? "h-7 w-7 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 transition-colors"
+                      : "h-7 w-7 rounded-lg bg-zinc-800 text-zinc-400 hover:text-emerald-400 hover:bg-emerald-400/10 border border-zinc-700/50"
+                  }
                 >
-                  <CirclePlus size={14} strokeWidth={2.5} />
+                  {isWatched
+                    ? <CircleCheck size={14} strokeWidth={2.5} />
+                    : <CirclePlus size={14} strokeWidth={2.5} />
+                  }
                 </Button>
               </TooltipTrigger>
-              <TooltipContent><p>Mark as Watched</p></TooltipContent>
+              <TooltipContent><p>{isWatched ? 'Watched' : 'Mark as Watched'}</p></TooltipContent>
             </Tooltip>
           </div>
         </div>
       </Card>
+
+      <RatingDialog
+        open={isRatingOpen}
+        onOpenChange={setIsRatingOpen}
+        movieTitle={movie.title}
+        onConfirm={(rating) => {
+          startTransition(async () => {
+            const result = await addToWatched(movie, rating);
+            if (!result?.error) setIsWatched(true);
+          });
+        }}
+      />
     </div>
   );
 };

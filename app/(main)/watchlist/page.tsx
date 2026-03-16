@@ -14,7 +14,7 @@ export default function WatchlistPage() {
         </h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto minimal-scrollbar">
+      <div className="flex-1 overflow-y-auto minimal-scrollbar pb-32">
         <WatchlistMovieGrid />
       </div>
     </div>
