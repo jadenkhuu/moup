@@ -9,7 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { RatingDialog } from './RatingDialog';
 import { addToWatchlist, removeFromWatchlist } from '@/app/(main)/watchlist/actions';
-import { addToWatched } from '@/app/(main)/watched/actions';
+import { addToWatched, removeFromWatched } from '@/app/(main)/watched/actions';
 
 interface WatchedMovieCardProps {
   movie: Movie;
@@ -178,6 +178,12 @@ export const WatchedMovieCard = ({ movie, rank, stars = 0, isInWatchlist = false
           startTransition(async () => {
             const result = await addToWatched(movie, rating);
             if (!result?.error) setIsWatched(true);
+          });
+        }}
+        onRemove={() => {
+          startTransition(async () => {
+            const result = await removeFromWatched(movie.id);
+            if (!result?.error) setIsWatched(false);
           });
         }}
       />

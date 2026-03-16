@@ -10,7 +10,7 @@ export async function addToWatched(movie: Movie, stars: number) {
 
   if (!user) return { error: 'Not authenticated' }
 
-  const { error } = await supabase.from('watched').insert({
+  const { error } = await supabase.from('watched').upsert({
     user_id: user.id,
     movie_id: movie.id,
     title: movie.title,
@@ -18,7 +18,7 @@ export async function addToWatched(movie: Movie, stars: number) {
     overview: movie.overview,
     release_date: movie.release_date,
     stars,
-  })
+  }, { onConflict: 'user_id,movie_id' })
 
   if (error) return { error: error.message }
 

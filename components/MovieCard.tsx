@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { MovieModal } from './MovieModal';
 import { RatingDialog } from './RatingDialog';
 import { addToWatchlist, removeFromWatchlist } from '@/app/(main)/watchlist/actions';
-import { addToWatched } from '@/app/(main)/watched/actions';
+import { addToWatched, removeFromWatched } from '@/app/(main)/watched/actions';
 
 interface MovieCardProps {
   movie: Movie;
@@ -180,6 +180,12 @@ export const MovieCard = ({ movie, isInWatchlist = false, isWatched: initialIsWa
             if (!result?.error) setIsWatched(true);
           });
         }}
+        onRemove={isWatched ? () => {
+          startTransition(async () => {
+            const result = await removeFromWatched(movie.id);
+            if (!result?.error) setIsWatched(false);
+          });
+        } : undefined}
       />
     </>
   );

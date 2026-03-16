@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Star, X, Check } from 'lucide-react';
+import { Star, Trash2, Check } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,7 @@ interface RatingDialogProps {
   onOpenChange: (open: boolean) => void;
   movieTitle: string;
   onConfirm: (rating: number) => void;
+  onRemove?: () => void;
 }
 
 export const RatingDialog = ({
@@ -25,6 +26,7 @@ export const RatingDialog = ({
   onOpenChange,
   movieTitle,
   onConfirm,
+  onRemove,
 }: RatingDialogProps) => {
   const [hovered, setHovered] = useState<number | null>(3);
   const [selected, setSelected] = useState<number | null>(3);
@@ -57,7 +59,7 @@ export const RatingDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-xs bg-zinc-900 border-zinc-800 text-zinc-100">
+      <DialogContent className="sm:max-w-xs bg-zinc-900 border-zinc-800 text-zinc-100 [&_[data-slot='dialog-close']]:opacity-100 [&_[data-slot='dialog-close']]:text-zinc-300 [&_[data-slot='dialog-close']]:hover:text-white [&_[data-slot='dialog-close']]:hover:bg-zinc-700/60 [&_[data-slot='dialog-close']]:rounded-md [&_[data-slot='dialog-close']]:p-1 [&_[data-slot='dialog-close']]:-m-1">
         <DialogHeader>
           <DialogTitle className="text-zinc-100">Rate this movie</DialogTitle>
           <DialogDescription className="text-zinc-400 break-words mt-2">
@@ -97,23 +99,38 @@ export const RatingDialog = ({
           </span>
         </div>
 
-        <DialogFooter className="flex-row justify-end gap-1 sm:gap-2">
-          <DialogClose asChild>
+        <DialogFooter className="flex-row items-center justify-end gap-1 sm:gap-2">
+          {onRemove ? (
             <Button
               variant="secondary"
-              size="icon"
-              className="bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50"
+              size="sm"
+              onClick={() => {
+                onRemove();
+                onOpenChange(false);
+              }}
+              className="bg-zinc-800 text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-zinc-700/50 gap-1.5"
             >
-              <X size={18} />
+              <Trash2 size={14} />
+              Remove
             </Button>
-          </DialogClose>
+          ) : (
+            <DialogClose asChild>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50"
+              >
+                Cancel
+              </Button>
+            </DialogClose>
+          )}
           <Button
             onClick={handleConfirm}
             disabled={selected === null}
-            size="icon"
-            className="bg-emerald-400/10 text-emerald-400 hover:bg-emerald-400/20 hover:text-emerald-300 border border-zinc-700/50 disabled:opacity-40 disabled:cursor-not-allowed"
+            size="sm"
+            className="bg-emerald-400/10 text-emerald-400 hover:bg-emerald-400/20 hover:text-emerald-300 border border-zinc-700/50 disabled:opacity-40 disabled:cursor-not-allowed px-3"
           >
-            <Check size={18} />
+            <Check size={16} />
           </Button>
         </DialogFooter>
       </DialogContent>
