@@ -28,10 +28,11 @@ export const BottomNav = () => {
         />        
       
         {/* Pair Button */}
-        <button className="flex flex-col items-center justify-center bg-white text-black p-3 rounded-xl hover:bg-zinc-200 transition-all active:scale-95 mx-1 shadow-lg shadow-white/10">
-          <Swords size={20} strokeWidth={2} />
-          {/* <span className="text-[10px] mt-1 font-medium opacity-0 select-none"></span> */}
-        </button>
+        <Link href="/pair">
+          <button className="flex flex-col items-center justify-center bg-white text-black p-3 rounded-xl hover:bg-zinc-200 transition-all active:scale-95 mx-1 shadow-lg shadow-white/10">
+            <Swords size={20} strokeWidth={2} />
+          </button>
+        </Link>
 
         {/* Watched */}
         <NavButton 

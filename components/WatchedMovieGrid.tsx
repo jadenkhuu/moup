@@ -45,18 +45,26 @@ export default async function WatchedMovieGrid() {
     );
   }
 
-  const movies = (rows as WatchedRow[]).map((row, i) => ({
-    movie: {
-      id: row.movie_id,
-      title: row.title,
-      poster_path: row.poster_path,
-      overview: row.overview ?? '',
-      release_date: row.release_date ?? '',
-      vote_average: 0,
-    } as Movie,
-    rank: i + 1,
-    stars: row.stars ?? 0,
-  }));
+  const sorted = [...(rows as WatchedRow[])].sort((a, b) => (b.stars ?? 0) - (a.stars ?? 0));
+
+  let rank = 1;
+  const movies = sorted.map((row, i) => {
+    if (i > 0 && (row.stars ?? 0) < (sorted[i - 1].stars ?? 0)) {
+      rank = i + 1;
+    }
+    return {
+      movie: {
+        id: row.movie_id,
+        title: row.title,
+        poster_path: row.poster_path,
+        overview: row.overview ?? '',
+        release_date: row.release_date ?? '',
+        vote_average: 0,
+      } as Movie,
+      rank,
+      stars: row.stars ?? 0,
+    };
+  });
 
   return (
     <div className="pl-2 pr-5 pt-5 pb-32">
