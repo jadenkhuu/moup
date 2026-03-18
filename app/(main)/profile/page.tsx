@@ -21,7 +21,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="flex-1 w-full flex flex-col items-center justify-center gap-6 bg-zinc-900 pt-14 sm:pt-20">
-      <h1 className="font-[family-name:var(--font-syne)] text-zinc-200 font-extrabold text-xl sm:text-2xl tracking-tight">
+      <h1 className="px-4 font-[family-name:var(--font-syne)] text-zinc-200 font-extrabold text-xl sm:text-2xl tracking-tight">
         Logged in as <span className="text-white">{displayName}</span>
       </h1>
       <LogoutButton />
