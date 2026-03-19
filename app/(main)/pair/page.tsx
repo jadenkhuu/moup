@@ -27,38 +27,49 @@ export default function PairPage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen px-6 gap-10"
+      className="flex-1 flex flex-col overflow-hidden relative pt-14 sm:pt-20"
       onClick={() => setSelected(null)}
     >
-      <p className="text-zinc-400 text-sm font-medium tracking-wide uppercase">
-        choose one option from below:
-      </p>
+      <div className="z-40 bg-zinc-900/80 backdrop-blur-md px-4 py-2 sm:py-3 border-b border-zinc-800">
+        <h1 className="pl-2 font-[family-name:var(--font-syne)] text-zinc-200 font-extrabold text-xl sm:text-2xl tracking-tight">
+          pairwise
+        </h1>
+      </div>
 
       <div
-        className="flex flex-col items-center gap-4 w-full max-w-sm sm:max-w-l lg:max-w-xl"
-        onClick={(e) => e.stopPropagation()}
+        className="flex-1 flex flex-col items-center px-6 gap-10 pt-10 sm:p-15"
+        onClick={() => setSelected(null)}
       >
-      <div className="flex gap-4 w-full">
-        <div className="flex-1">
-          <PairMovieCard
-            movie={mockMovieA}
-            isSelected={selected === mockMovieA.id}
-            onClick={() => setSelected(mockMovieA.id)}
-          />
-        </div>
-        <div className="flex-1">
-          <PairMovieCard
-            movie={mockMovieB}
-            isSelected={selected === mockMovieB.id}
-            onClick={() => setSelected(mockMovieB.id)}
-          />
-        </div>
-      </div>
-
-      </div>
-        <p className={`text-zinc-400 text-sm transition-all duration-300 ${selected !== null ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 pointer-events-none'}`}>
-          click it again to confirm the selection
+        <p className="text-zinc-400 text-sm font-medium tracking-wide uppercase">
+          choose one option from below:
         </p>
+
+        <div
+          className="flex flex-col items-center gap-4 w-full max-w-sm sm:max-w-l lg:max-w-xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+        <div className="flex gap-4 w-full">
+          <div className="flex-1">
+            <PairMovieCard
+              movie={mockMovieA}
+              isSelected={selected === mockMovieA.id}
+              onClick={() => setSelected(mockMovieA.id)}
+            />
+          </div>
+          <div className="flex-1">
+            <PairMovieCard
+              movie={mockMovieB}
+              isSelected={selected === mockMovieB.id}
+              onClick={() => setSelected(mockMovieB.id)}
+            />
+          </div>
+        </div>
+
+        </div>
+          <p className={`text-zinc-400 text-sm transition-all duration-300 ${selected !== null ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 pointer-events-none'}`}>
+            click it again to confirm the selection
+          </p>
+      </div>
     </div>
   );
 }

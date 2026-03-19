@@ -97,7 +97,7 @@ export const MovieModal = ({ movie, isOpen, onOpenChange }: MovieModalProps) => 
                     </div>
                   )}
                   {details.vote_average > 0 && (
-                    <div className="flex items-center gap-1.5 bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-md border border-amber-500/20">
+                    <div className="flex items-center gap-1.5 bg-zinc-900/50 text-zinc-300 px-2.5 py-1 rounded-md border border-zinc-800">
                       <Star size={14} fill="currentColor" />
                       {details.vote_average.toFixed(1)}/10
                     </div>

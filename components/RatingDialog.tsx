@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Star, Trash2, Check } from 'lucide-react';
+import { Star, Trash2, Check, X } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -78,7 +78,7 @@ export const RatingDialog = ({
                 type="button"
                 onClick={() => setSelected(selected === star ? 0 : star)}
                 onMouseEnter={() => setHovered(star)}
-                className="p-1 transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded"
+                className="p-1 transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded"
                 aria-label={`Rate ${star} star${star > 1 ? 's' : ''}`}
               >
                 <Star
@@ -86,7 +86,7 @@ export const RatingDialog = ({
                   strokeWidth={1.5}
                   className={
                     displayRating !== null && star <= displayRating
-                      ? 'fill-amber-400 text-amber-400 transition-colors'
+                      ? 'fill-zinc-300 text-zinc-300 transition-colors'
                       : 'fill-transparent text-zinc-600 transition-colors'
                   }
                 />
@@ -111,24 +111,23 @@ export const RatingDialog = ({
               className="bg-zinc-800 text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-zinc-700/50 gap-1.5"
             >
               <Trash2 size={14} />
-              Remove
             </Button>
           ) : (
             <DialogClose asChild>
               <Button
                 variant="secondary"
-                size="sm"
+                size="icon"
                 className="bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50"
               >
-                Cancel
+                <X size={16} />
               </Button>
             </DialogClose>
           )}
           <Button
             onClick={handleConfirm}
             disabled={selected === null}
-            size="sm"
-            className="bg-emerald-400/10 text-emerald-400 hover:bg-emerald-400/20 hover:text-emerald-300 border border-zinc-700/50 disabled:opacity-40 disabled:cursor-not-allowed px-3"
+            size="icon"
+            className="bg-emerald-400/10 text-emerald-400 hover:bg-emerald-400/20 hover:text-emerald-300 border border-zinc-700/50 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Check size={16} />
           </Button>

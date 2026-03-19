@@ -15,6 +15,7 @@ interface WatchedMovieCardProps {
   movie: Movie;
   rank: number;
   stars?: number;
+  rating?: number;
   isInWatchlist?: boolean;
 }
 
@@ -25,7 +26,7 @@ function rankColor(rank: number) {
   return 'text-zinc-400';
 }
 
-export const WatchedMovieCard = ({ movie, rank, stars = 0, isInWatchlist = false }: WatchedMovieCardProps) => {
+export const WatchedMovieCard = ({ movie, rank, stars = 0, rating, isInWatchlist = false }: WatchedMovieCardProps) => {
   const [inWatchlist, setInWatchlist] = useState(isInWatchlist);
   const [isWatched, setIsWatched] = useState(true);
   const [isRatingOpen, setIsRatingOpen] = useState(false);
@@ -74,17 +75,11 @@ export const WatchedMovieCard = ({ movie, rank, stars = 0, isInWatchlist = false
 
         {/* Title + buttons */}
         <div className="flex items-center flex-1 min-w-0 px-3 gap-3">
-          <div className="flex flex-col flex-1 min-w-0">
+          <div className="flex flex-col flex-1 min-w-0 gap-0.5">
             <p title={movie.title} className="text-zinc-100 font-semibold text-sm leading-snug group-hover:text-white transition-colors">
               {movie.title}
-            </p>
-            <div className="flex items-center gap-2">
-              {movie.release_date && (
-                <div className="flex items-center gap-1 text-zinc-500">
-                  <Calendar size={10} />
-                  <span className="text-[11px]">{new Date(movie.release_date).getFullYear()}</span>
-                </div>
-              )}
+            </p>            
+            <div className="flex items-center gap-2">              
               {stars > 0 && (
                 <div className="flex items-center gap-0.5">
                   {[1, 2, 3, 4, 5].map((s) => (
@@ -92,12 +87,23 @@ export const WatchedMovieCard = ({ movie, rank, stars = 0, isInWatchlist = false
                       key={s}
                       size={10}
                       strokeWidth={1.5}
-                      className={s <= stars ? 'fill-amber-400 text-amber-400' : 'fill-transparent text-zinc-600'}
+                      className={s <= stars ? 'fill-zinc-300 text-zinc-300' : 'fill-transparent text-zinc-600'}
                     />
                   ))}
                 </div>
               )}
+              {rating !== undefined && (
+                <span className="text-[10px] tabular-nums text-zinc-500">
+                  {Math.round(rating)}
+                </span>
+              )}
             </div>
+            {movie.release_date && (
+              <div className="flex items-center gap-1 text-zinc-500">
+                <Calendar size={10} />
+                <span className="text-[11px]">{new Date(movie.release_date).getFullYear()}</span>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
