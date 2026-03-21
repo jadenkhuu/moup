@@ -1,0 +1,20 @@
+.git
+.gitignore
+.next
+node_modules
+npm-debug.log*
+
+# local env files — never bake secrets into the image
+.env
+.env.local
+.env.*.local
+
+# editor & OS
+.cursor
+.vscode
+.DS_Store
+Thumbs.db
+
+# docs
+README.md
+*.md

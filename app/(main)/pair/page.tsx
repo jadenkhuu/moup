@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, SkipForward } from 'lucide-react';
 import { PairMovieCard } from '@/components/PairMovieCard';
 import { getMatchupQueue, resolveMatch, MatchupPair } from './actions';
 
@@ -74,7 +74,7 @@ export default function PairPage() {
       </div>
 
       <div
-        className="flex-1 flex flex-col items-center px-6 gap-6 pt-10 sm:p-15"
+        className="flex-1 flex flex-col items-center px-6 gap-6 pt-10 sm:pt-8 sm:px-15 sm:pb-15 lg:pt-5"
         onClick={() => setSelected(null)}
       >
         {isLoading ? (
@@ -95,7 +95,7 @@ export default function PairPage() {
             </p>
 
             <div
-              className="flex flex-col items-center gap-4 w-full max-w-sm sm:max-w-l lg:max-w-xl"
+              className="flex flex-col items-center gap-3 w-full max-w-sm sm:max-w-l lg:max-w-xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex gap-4 w-full">
@@ -114,17 +114,28 @@ export default function PairPage() {
                   />
                 </div>
               </div>
-            </div>
 
-            <p
-              className={`text-zinc-400 text-sm transition-all duration-300 ${
-                selected !== null
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-1 pointer-events-none'
-              }`}
-            >
-              click it again to confirm the selection
-            </p>
+              <button
+                onClick={() => {
+                  setMatchQueue((prev) => prev.slice(1));
+                  setSelected(null);
+                }}
+                className="w-full py-2 text-sm font-medium text-zinc-500 hover:text-zinc-300 border border-zinc-800 hover:border-zinc-600 rounded-lg bg-transparent hover:bg-zinc-800/40 transition-all duration-200 tracking-wide"
+              >
+                skip
+                <SkipForward size={14} className="inline-block mx-1.5 -mt-0.5" />
+              </button>
+
+              <p
+                className={`text-zinc-400 text-sm font-medium tracking-wide transition-all duration-300 ${
+                  selected !== null
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-1 pointer-events-none'
+                }`}
+              >
+                click it again to confirm the selection
+              </p>
+            </div>
           </>
         ) : null}
       </div>
