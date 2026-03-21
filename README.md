@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# moup
 
-## Getting Started
+moup is a simple movie search and tracker app, but with a twist. It evolves beyond the traditional 1-5 star rating system for a pairwise comparison engine that builds a comprehensive, perfectly beautiful ranking of your favorite films.
 
-First, run the development server:
+## The Problem
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Most apps ask you to rate a movie in a vacuum: *"Is this a 4 or a 5?"* That’s hard, restrictive, and often inaccurate. You can't honestly say that every single 4-star movie gave you the exact same amount of enjoyment.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Plus, standard rating scales are broken. If you rate a restaurant a 6/10, people assume something went wrong. Because 7/10 is socially accepted as "average," you're realistically only using three numbers (8, 9, 10) to rank things you actually like.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+But the alternative—manually ranking a list of 20+ movies—feels like spreadsheet work at a 9-5 job. It takes something that should be fun and turns it into a chore.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## The Solution
 
-## Learn More
+moup fixes this by asking a simple question: **"Do you like this more than that?"**
 
-To learn more about Next.js, take a look at the following resources:
+Instead of assigning an arbitrary and discrete ranking like out of 5 stars, you play a quick 'This or That' game. Stop overthinking your ratings. Just choose. moup curates quick comparisons that turn your gut feelings into a perfectly ordered list of your favorite movies.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
+- **Search & Track:** Find movies easily and add them to your Watched or Watchlist.
+- **Pairwise Ranking Engine:** Compare two movies head-to-head.
+- **True Rankings:** Automatically generate a ranked list of your watched movies based on your comparison choices. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+- **Framework:** [Next.js](https://nextjs.org/) (App Router)
+- **Language:** TypeScript/JS
+- **Styling:** Tailwind CSS / shadcn/ui
+- **Database & Auth:** [Supabase](https://supabase.com/)
+- **Data:** [TMDB API](https://developer.themoviedb.org/docs)
