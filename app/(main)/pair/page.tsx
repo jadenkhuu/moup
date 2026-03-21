@@ -74,7 +74,7 @@ export default function PairPage() {
       </div>
 
       <div
-        className="flex-1 flex flex-col items-center px-6 gap-6 pt-10 sm:pt-8 sm:px-15 sm:pb-15 lg:pt-5"
+        className="flex-1 flex flex-col items-center px-6 gap-6 pt-6 sm:pt-8 sm:px-15 sm:pb-15 lg:pt-5"
         onClick={() => setSelected(null)}
       >
         {isLoading ? (
