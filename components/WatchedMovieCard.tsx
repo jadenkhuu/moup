@@ -55,15 +55,15 @@ export const WatchedMovieCard = ({ movie, rank, stars = 0, rating, isInWatchlist
 
       <Card className="flex-1 flex flex-row overflow-hidden bg-zinc-900/50 backdrop-blur-sm border-zinc-800/50 hover:border-zinc-700 transition-all group gap-0 p-0">
 
-        {/* Poster — 2:3 ratio at h-20 (80px) ≈ 54px wide */}
-        <div className="relative w-[54px] min-h-[81px] shrink-0 bg-zinc-800 border-r border-zinc-800/50">
+        {/* Poster — 2:3 ratio at w-[54px] mobile, w-[68px] sm+ */}
+        <div className="relative w-[54px] min-h-[81px] sm:w-[68px] sm:min-h-[102px] shrink-0 bg-zinc-800 border-r border-zinc-800/50">
           {movie.poster_path ? (
             <Image
               src={`https://image.tmdb.org/t/p/w154${movie.poster_path}`}
               alt={movie.title}
               fill
-              className="object-cover"
-              sizes="54px"
+              className="object-contain"
+              sizes="(min-width: 640px) 68px, 54px"
               unoptimized
             />
           ) : (
