@@ -50,7 +50,7 @@ export default function WatchedClientPage({ movies }: WatchedClientPageProps) {
               placeholder="Search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="text-xs sm:text-sm"
+              className="text-base sm:text-sm"
             />
           </InputGroup>
           <Select value={starFilter} onValueChange={setStarFilter}>

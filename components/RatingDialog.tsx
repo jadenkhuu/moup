@@ -59,17 +59,17 @@ export const RatingDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-xs bg-zinc-900 border-zinc-800 text-zinc-100 [&_[data-slot='dialog-close']]:opacity-100 [&_[data-slot='dialog-close']]:text-zinc-300 [&_[data-slot='dialog-close']]:hover:text-white [&_[data-slot='dialog-close']]:hover:bg-zinc-700/60 [&_[data-slot='dialog-close']]:rounded-md [&_[data-slot='dialog-close']]:p-1 [&_[data-slot='dialog-close']]:-m-1">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-xs bg-zinc-900/80 backdrop-blur-md border-zinc-800 text-zinc-100 [&_[data-slot='dialog-close']]:opacity-100 [&_[data-slot='dialog-close']]:text-zinc-300 [&_[data-slot='dialog-close']]:hover:text-white [&_[data-slot='dialog-close']]:hover:bg-zinc-700/60 [&_[data-slot='dialog-close']]:rounded-md [&_[data-slot='dialog-close']]:p-1 [&_[data-slot='dialog-close']]:-m-1">
+        <DialogHeader className="text-left">
           <DialogTitle className="text-zinc-100">Rate this movie</DialogTitle>
-          <DialogDescription className="text-zinc-400 break-words mt-2">
+          <DialogDescription className="text-zinc-400 break-words mt-1 text-base">
             {movieTitle}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col items-center gap-2 py-2">
+        <div className="flex flex-col items-center gap-1.5 py-1">
           <div
-            className="flex gap-1"
+            className="flex gap-1.5"
             onMouseLeave={() => setHovered(null)}
           >
             {[1, 2, 3, 4, 5].map((star) => (
@@ -94,12 +94,12 @@ export const RatingDialog = ({
             ))}
           </div>
 
-          <span className="text-sm h-5 text-zinc-400 tracking-wide">
+          <span className="text-sm h-4 text-zinc-400 tracking-wide">
             {displayRating !== null ? ratingLabels[displayRating] : ''}
           </span>
         </div>
 
-        <DialogFooter className="flex-row items-center justify-end gap-1 sm:gap-2">
+        <DialogFooter className="flex-row items-center justify-end gap-2">
           {onRemove ? (
             <Button
               variant="secondary"
