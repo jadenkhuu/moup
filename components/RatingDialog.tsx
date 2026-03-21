@@ -103,14 +103,14 @@ export const RatingDialog = ({
           {onRemove ? (
             <Button
               variant="secondary"
-              size="sm"
+              size="icon"
               onClick={() => {
                 onRemove();
                 onOpenChange(false);
               }}
-              className="bg-zinc-800 text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-zinc-700/50 gap-1.5"
+              className="bg-zinc-800 text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-zinc-700/50"
             >
-              <Trash2 size={14} />
+              <Trash2 size={16} />
             </Button>
           ) : (
             <DialogClose asChild>

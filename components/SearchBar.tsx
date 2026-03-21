@@ -42,6 +42,7 @@ export default function SearchBar() {
           hasInteracted.current = true;
           setQuery(e.target.value);
         }}
+        className="text-xs sm:text-sm"
       />
     </InputGroup>
   );
