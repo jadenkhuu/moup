@@ -49,6 +49,7 @@ export async function getMatchupQueue(
       Math.abs(m.rating - target.rating) < Math.abs(best.rating - target.rating) ? m : best
     )
 
+    usedOpponentIds.add(target.movie_id)
     usedOpponentIds.add(opponent.movie_id)
     pairs.push({ target: toMovie(target), opponent: toMovie(opponent) })
   }
