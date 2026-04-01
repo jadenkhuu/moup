@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { fetchMovies, searchMovies } from '@/app/API';
 import { Movie } from '@/types/tmdb';
@@ -23,11 +23,16 @@ export default function MovieGrid({ initialMovies, searchQuery = '', watchlistId
 
   const { ref, inView } = useInView();
 
+  const initialMoviesRef = useRef(initialMovies);
+  initialMoviesRef.current = initialMovies;
+
   useEffect(() => {
-    setMovies(initialMovies);
+    setMovies(initialMoviesRef.current);
     setPage(1);
-    setHasMore(initialMovies.length === 20);
-  }, [initialMovies, searchQuery]);
+    setHasMore(initialMoviesRef.current.length === 20);
+  // Only reset the list when the search query changes, not on every prop re-render
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
 
   useEffect(() => {
     if (inView && hasMore) {
