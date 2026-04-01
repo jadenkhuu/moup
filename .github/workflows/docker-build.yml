@@ -2,8 +2,7 @@ name: Build & Publish Docker Image
 
 # Triggers when a pull request is merged into main
 on:
-  push:
-    branches: [ "main" ]
+  create:
     tags:
       - "*.*"       # Matches tags like 1.0, 2.1.3, etc.
   workflow_dispatch:
