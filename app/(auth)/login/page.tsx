@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { login } from "@/app/(auth)/actions";
+import { SubmitButton } from "@/components/auth/submit-button";
 
 export default async function LoginPage({
   searchParams,
@@ -19,7 +19,7 @@ export default async function LoginPage({
           <h1 className="font-[family-name:var(--font-syne)] text-zinc-200 font-extrabold text-4xl tracking-tight">
             moup
           </h1>
-          <p className="text-zinc-500 text-sm">Sign in to your account</p>
+          <p className="text-zinc-500 text-sm">Log in to your account</p>
         </div>
 
         {/* Form */}
@@ -54,12 +54,7 @@ export default async function LoginPage({
             />
           </div>
 
-          <Button
-            type="submit"
-            className="w-full h-10 mt-2 bg-zinc-200 text-zinc-900 font-semibold hover:bg-zinc-100 active:bg-zinc-300 transition-colors"
-          >
-            Sign in
-          </Button>
+          <SubmitButton>Log in</SubmitButton>
         </form>
 
         {/* Footer */}

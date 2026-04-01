@@ -38,7 +38,7 @@ export const BottomNav = () => {
         <NavButton 
           href="/watched" 
           icon={<CircleCheck size={20} strokeWidth={2} />} 
-          label="watched" 
+          label="rankings" 
           active={pathname === "/watched"} 
         />
         

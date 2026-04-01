@@ -45,8 +45,9 @@ export default function WatchlistClientPage({ movies }: WatchlistClientPageProps
       <div className="flex-1 overflow-y-auto minimal-scrollbar pb-32">
         {movies.length === 0 ? (
           <div className="p-5 pr-3.25 pb-32">
-            <div className="flex justify-center text-zinc-400 mt-10">
-              get started by adding movies to your watchlist.
+            <div className="flex flex-col items-center gap-1.5 text-center text-zinc-400 mt-16">
+              <p>track the movies you plan to watch.</p>
+              <p>get started by adding movies to your watchlist.</p>
             </div>
           </div>
         ) : filtered.length === 0 ? (
