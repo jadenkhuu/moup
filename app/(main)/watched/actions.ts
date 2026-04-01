@@ -1,6 +1,5 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { Movie } from '@/types/tmdb'
 
@@ -38,7 +37,6 @@ export async function addToWatched(movie: Movie, stars: number) {
 
   if (error) return { error: error.message }
 
-  revalidatePath('/', 'layout')
   return { success: true }
 }
 
@@ -55,6 +53,5 @@ export async function removeFromWatched(movieId: number) {
 
   if (error) return { error: error.message }
 
-  revalidatePath('/', 'layout')
   return { success: true }
 }

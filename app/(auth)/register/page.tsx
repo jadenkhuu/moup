@@ -1,8 +1,8 @@
 // app/(auth)/register/page.tsx
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signup } from "../actions";
+import { SubmitButton } from "@/components/auth/submit-button";
 
 export default async function RegisterPage({
   searchParams,
@@ -72,12 +72,7 @@ export default async function RegisterPage({
             />
           </div>
 
-          <Button
-            type="submit"
-            className="w-full h-10 mt-2 bg-zinc-200 text-zinc-900 font-semibold hover:bg-zinc-100 active:bg-zinc-300 transition-colors"
-          >
-            Create account
-          </Button>
+          <SubmitButton>Create account</SubmitButton>
         </form>
 
         {/* Footer */}

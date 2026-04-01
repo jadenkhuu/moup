@@ -78,7 +78,10 @@ export default function WatchedClientPage({ movies }: WatchedClientPageProps) {
       <div className="flex-1 overflow-y-auto minimal-scrollbar">
         {movies.length === 0 ? (
           <div className="pl-2 pr-5 pt-5 pb-32">
-            <div className="flex justify-center text-zinc-400 mt-10">go rate some movies.</div>
+            <div className="flex flex-col items-center gap-1.5 text-center text-zinc-400 mt-16">
+              <p>movies that you have watched and rated will go here as a ranked list.</p>
+              <p>go watch some movies.</p>
+            </div>
           </div>
         ) : filtered.length === 0 ? (
           <div className="pl-2 pr-5 pt-5 pb-32">

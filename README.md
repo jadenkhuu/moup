@@ -33,3 +33,19 @@ Instead of assigning an arbitrary and discrete ranking like out of 5 stars, you 
 - **Styling:** Tailwind CSS / shadcn/ui
 - **Database & Auth:** [Supabase](https://supabase.com/)
 - **Data:** [TMDB API](https://developer.themoviedb.org/docs)
+
+## Running on Docker
+```shell
+# Build image
+docker build -t jadenkhuu/moup-app:ver .
+
+# Push image to DockerHub
+docker push jadenkhuu/moup-app:ver
+
+# Run container
+docker run --rm -it -p 8080:3000 \
+    -e TMDB_ACCESS_TOKEN="token" \
+    -e NEXT_PUBLIC_SUPABASE_URL="https://url" \
+    -e NEXT_PUBLIC_SUPABASE_ANON_KEY="key" \
+    jadenkhuu/moup-app:ver
+```

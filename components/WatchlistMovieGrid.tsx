@@ -38,6 +38,8 @@ export default async function WatchlistMovieGrid() {
     return (
       <div className="p-5 pr-3.25 pb-32">
         <div className="flex justify-center text-zinc-400 mt-10">
+          track the movies you plan to watch.
+          <br />
           get started by adding movies to your watchlist.
         </div>
       </div>
