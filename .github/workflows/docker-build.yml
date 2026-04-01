@@ -16,6 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create version.txt file
+        run: echo "${{ github.ref_name }}" > version.txt
+
       # Enables multi-platform builds and advanced caching
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

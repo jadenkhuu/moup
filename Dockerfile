@@ -51,6 +51,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 # Copy the static build files
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+COPY version.txt /app/version.txt
+
 # Switch to the non-root user
 USER nextjs
 
