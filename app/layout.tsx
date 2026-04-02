@@ -10,8 +10,8 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "moup",
-  description: "Movie tracking app",
+  title: "moup | pairwise movie rankings",
+  description: "movies ordered using pairwise",
 };
 
 export default function RootLayout({
