@@ -30,7 +30,10 @@ export default async function SearchPage({
           <SearchBar />
       </div>
 
-      <div className="flex-1 overflow-y-auto minimal-scrollbar">
+      <div
+        id="search-scroll-root"
+        className="flex-1 overflow-y-auto minimal-scrollbar"
+      >
         <MovieGrid initialMovies={initialMovies} searchQuery={query} watchlistIds={watchlistIds} watchedIds={watchedIds} />      
       </div>
     </div>

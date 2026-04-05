@@ -14,6 +14,11 @@ export default function SearchBar() {
 
   const [isPending, startTransition] = useTransition();
 
+  const qFromUrl = searchParams.get('q') ?? '';
+  useEffect(() => {
+    setQuery(qFromUrl);
+  }, [qFromUrl]);
+
   useEffect(() => {
     if (!hasInteracted.current) return;
 

@@ -35,6 +35,17 @@ export default function MovieGrid({ initialMovies, searchQuery = '', watchlistId
   }, [searchQuery]);
 
   useEffect(() => {
+    const onSearchHome = () => {
+      const next = initialMoviesRef.current;
+      setMovies(next);
+      setPage(1);
+      setHasMore(next.length === 20);
+    };
+    window.addEventListener('moup:search-home-reset', onSearchHome);
+    return () => window.removeEventListener('moup:search-home-reset', onSearchHome);
+  }, []);
+
+  useEffect(() => {
     if (inView && hasMore) {
       loadMoreMovies();
     }
