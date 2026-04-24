@@ -11,7 +11,7 @@ export function WhyBroken() {
             <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-4">
               § 01 / why pairwise
             </div>
-            <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100">
+            <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100 select-none">
               the 1–10 scale <br />
               <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[8px]">
                 was never honest.

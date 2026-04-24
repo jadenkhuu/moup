@@ -10,8 +10,9 @@ export function TopNav() {
           <span className="font-syne font-extrabold text-2xl tracking-tight text-zinc-100">moup</span>
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-zinc-400">
-          <a href="#how" className="hover:text-zinc-100 transition-colors">how it works</a>
           <a href="#why" className="hover:text-zinc-100 transition-colors">why pairwise</a>
+          <a href="#how" className="hover:text-zinc-100 transition-colors">how it works</a>
+          <a href="#demo" className="hover:text-zinc-100 transition-colors">try a demo</a>
           <a href="#features" className="hover:text-zinc-100 transition-colors">features</a>
           <a
             href="https://github.com/jadenkhuu/moup"

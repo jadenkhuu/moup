@@ -79,6 +79,20 @@
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s, border-color 0.2s;
 }
 
+@keyframes moup-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.moup-landing .card-enter {
+  animation: moup-card-enter 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
 .moup-landing button:focus-visible,
 .moup-landing a:focus-visible {
   outline: 2px solid #fafafa;

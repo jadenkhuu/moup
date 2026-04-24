@@ -7,16 +7,35 @@ import { MOVIES, getYear } from "./types";
 import { Poster } from "./Poster";
 
 export function Hero() {
-  const pairs = useMemo(
-    () => [
-      [MOVIES[0], MOVIES[1]],
-      [MOVIES[2], MOVIES[3]],
-      [MOVIES[4], MOVIES[5]],
-      [MOVIES[6], MOVIES[7]],
-      [MOVIES[8], MOVIES[9]],
-    ],
-    []
-  );
+  // A handcrafted sequence that mirrors how moup actually ranks movies:
+  // each new movie gets compared against several already-seen ones, so the
+  // same titles recur across rounds (A vs B, A vs C, B vs D, A vs D, ...).
+  // Loops forever via `i % pairs.length` to communicate the infinite nature.
+  const pairs = useMemo(() => {
+    const idx: [number, number][] = [
+      [0, 1], // A vs B
+      [0, 2], // A vs C
+      [1, 3], // B vs D
+      [0, 3], // A vs D
+      [2, 4], // C vs E
+      [1, 4], // B vs E
+      [3, 5], // D vs F
+      [0, 5], // A vs F
+      [4, 6], // E vs G
+      [2, 6], // C vs G
+      [5, 7], // F vs H
+      [1, 7], // B vs H
+      [6, 8], // G vs I
+      [3, 8], // D vs I
+      [7, 9], // H vs J
+      [0, 9], // A vs J
+      [4, 9], // E vs J
+      [8, 2], // I vs C
+      [5, 3], // F vs D
+      [6, 1], // G vs B
+    ];
+    return idx.map(([a, b]) => [MOVIES[a], MOVIES[b]] as const);
+  }, []);
   const [i, setI] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
 
@@ -44,7 +63,7 @@ export function Hero() {
 
       <div className="max-w-[1200px] mx-auto px-6 pt-14 pb-28 grid lg:grid-cols-[1.05fr_1fr] gap-16 items-center relative">
         <div>
-          <h1 className="mt-8 font-syne font-extrabold text-[clamp(2.25rem,4.8vw,4.25rem)] leading-[0.95] tracking-tight text-zinc-100">
+          <h1 className="mt-8 font-syne font-extrabold text-[clamp(2rem,4.2vw,3.75rem)] leading-[0.95] tracking-tight text-zinc-100">
             stop rating movies.
             <br />
             <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[10px]">
@@ -52,12 +71,24 @@ export function Hero() {
             </span>
           </h1>
 
-          <p className="mt-8 text-lg text-zinc-400 max-w-xl leading-relaxed">
-            moup replaces the broken 1–5 star scale with a single question:
+          <div className="mt-8 flex items-center gap-3">
+            <span className="font-syne font-extrabold text-2xl text-zinc-100 tracking-tight">moup</span>
+            <span className="h-5 w-px bg-zinc-700" />
+            <span className="text-base text-zinc-500">
+              <span className="text-zinc-200">m</span>ovies{" "}
+              <span className="text-zinc-200">o</span>rdered{" "}
+              <span className="text-zinc-200">u</span>sing{" "}
+              <span className="text-zinc-200">p</span>airwise
+            </span>
+          </div>
+
+          <p className="mt-6 text-lg text-zinc-400 max-w-xl leading-relaxed">
+            moup replaces the broken 1–10 rating with a single question:
             <br />
-            <span className="text-zinc-200">do you like this one more than that one?</span>
+            <span className="text-zinc-200">do you like this or that?</span>
             <br />
-            <br /> quick gut-feeling picks build a perfectly ordered list of your favorite films.
+            <br />
+            quick gut-feeling choices build a perfectly ordered list of your favorite films.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -115,10 +146,10 @@ export function Hero() {
                 <span className="text-zinc-600">/</span>
                 <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest">pairwise</span>
               </div>
-              <div className="flex gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-300" />
+              <div className="font-mono text-[10px] text-zinc-500 tabular-nums tracking-widest">
+                <span className="text-zinc-300">{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-zinc-700 mx-1">/</span>
+                <span className="text-zinc-600">∞</span>
               </div>
             </div>
 
@@ -133,7 +164,7 @@ export function Hero() {
                   <button
                     key={m.id}
                     onClick={() => pick(m.id)}
-                    className={`lift rounded-xl overflow-hidden bg-zinc-900/50 border text-left group
+                    className={`lift card-enter rounded-xl overflow-hidden bg-zinc-900/50 border text-left group
                       ${
                         isSel
                           ? "border-white ring-select -translate-y-2 scale-[1.03]"

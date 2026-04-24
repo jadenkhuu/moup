@@ -150,22 +150,17 @@ export function Demo() {
     <section id="demo" className="border-t hairline">
       <div className="max-w-[1200px] mx-auto px-6 py-24">
         <div className="grid lg:grid-cols-2 gap-6">
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-10">
             <div>
               <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-3">
                 § 03 / try it out
               </div>
-              <h2 className="font-syne font-extrabold text-4xl leading-[0.95] tracking-tight text-zinc-100">
+              <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100 select-none">
                 don't think too hard. <br />
                 <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[8px]">
                   just pick.
                 </span>
               </h2>
-              <p className="mt-5 text-base text-zinc-400 leading-relaxed max-w-md">
-                when you log a movie, you first give it a quick star rating to
-                place it in a rough order.{" "}
-                <span className="text-zinc-200">then, the fun begins.</span>
-              </p>
             </div>
 
             <div className="rounded-2xl border hairline bg-[#111114] p-6 flex flex-col">
@@ -224,7 +219,7 @@ export function Demo() {
                   selected ? "opacity-100" : "opacity-0"
                 }`}
               >
-                click again to confirm your pick
+                click it again to confirm your pick
               </div>
             </div>
           </div>
@@ -333,7 +328,7 @@ export function Demo() {
                 ? "At first, the star rating ranks them into a rough order. Pair comparisons refine them into a precise ranking."
                 : `${round} comparison${
                     round === 1 ? "" : "s"
-                  } in — your small choices help the list get more accurate.`}
+                  } in — the spread grows, the list gets truer.`}
             </p>
           </div>
         </div>
