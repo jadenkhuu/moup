@@ -7,7 +7,7 @@ export default function MainLayout({
 }) {
   return (
     /* Main Viewport Wrapper */
-    <div className="h-screen w-screen flex justify-center relative">
+    <div className="h-screen w-screen flex justify-center relative overflow-hidden">
       
       {/* Main Interface Shell (1000px wide) */}
       <div className="relative h-full w-full max-w-[1000px] bg-zinc-900 shadow-2xl border-x border-zinc-800 flex flex-col">

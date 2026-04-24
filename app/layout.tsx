@@ -24,7 +24,7 @@ export default function RootLayout({
       {/* We add the font variable to the body so it's available everywhere.
         We also keep the dark mode background here.
       */}
-      <body className={`antialiased bg-zinc-950 overflow-hidden ${syne.variable}`}>
+      <body className={`antialiased bg-zinc-950 ${syne.variable}`}>
         <TooltipProvider>
           {children}
         </TooltipProvider>
