@@ -4,7 +4,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen w-screen flex justify-center relative">
+    <div className="h-screen w-screen flex justify-center relative overflow-hidden">
       <div className="relative h-full w-full max-w-[1000px] bg-zinc-900 shadow-2xl border-x border-zinc-800 flex flex-col">
 
         {/* GLOBAL HEADER */}

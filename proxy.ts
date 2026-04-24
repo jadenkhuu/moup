@@ -30,10 +30,12 @@ export async function proxy(request: NextRequest) {
   // This refreshes the session if it's expired - required for Server Components
   const { data: { user } } = await supabase.auth.getUser()
 
-  const isAuthRoute = request.nextUrl.pathname.startsWith('/login') ||
-                      request.nextUrl.pathname.startsWith('/register')
+  const pathname = request.nextUrl.pathname
+  const isPublicRoute = pathname === '/' ||
+                        pathname.startsWith('/login') ||
+                        pathname.startsWith('/register')
 
-  if (!user && !isAuthRoute) {
+  if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)

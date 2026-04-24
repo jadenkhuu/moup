@@ -16,9 +16,12 @@ export default async function LoginPage({
 
         {/* Title */}
         <div className="flex flex-col gap-1">
-          <h1 className="font-[family-name:var(--font-syne)] text-zinc-200 font-extrabold text-4xl tracking-tight">
+          <Link
+            href="/"
+            className="w-fit font-[family-name:var(--font-syne)] text-zinc-200 font-extrabold text-4xl tracking-tight hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500/40 rounded-sm"
+          >
             moup
-          </h1>
+          </Link>
           <p className="text-zinc-500 text-sm">Log in to your account</p>
         </div>
 
