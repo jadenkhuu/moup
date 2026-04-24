@@ -149,9 +149,9 @@ function Hero() {
         />
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-6 pt-20 pb-28 grid lg:grid-cols-[1.05fr_1fr] gap-16 items-center relative">
+      <div className="max-w-[1200px] mx-auto px-6 pt-14 pb-28 grid lg:grid-cols-[1.05fr_1fr] gap-16 items-center relative">
         <div>
-          <h1 className="mt-16 font-syne font-extrabold text-[clamp(2.25rem,4.8vw,4.25rem)] leading-[0.95] tracking-tight text-zinc-100">
+          <h1 className="mt-8 font-syne font-extrabold text-[clamp(2.25rem,4.8vw,4.25rem)] leading-[0.95] tracking-tight text-zinc-100">
             stop rating movies.
             <br />
             <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[10px]">
@@ -176,10 +176,17 @@ function Hero() {
               <ArrowRight size={16} strokeWidth={2.5} />
             </Link>
             <a
+              href="#why"
+              className="inline-flex items-center gap-2 text-zinc-300 rounded-xl px-4 py-3 text-sm font-medium border hairline hover:border-zinc-600 hover:text-zinc-100 transition-colors"
+            >
+              the problem
+              <ArrowDown size={14} />
+            </a>
+            <a
               href="#how"
               className="inline-flex items-center gap-2 text-zinc-300 rounded-xl px-4 py-3 text-sm font-medium border hairline hover:border-zinc-600 hover:text-zinc-100 transition-colors"
             >
-              see how it works
+              how it works
               <ArrowDown size={14} />
             </a>
           </div>
