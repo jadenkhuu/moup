@@ -10,9 +10,10 @@ import {
   RotateCcw,
   SkipForward,
   Sparkles,
+  Star,
 } from "lucide-react";
 import glicko2 from "glicko2-lite";
-import { MOVIES, Movie, getYear, tmdbPoster } from "./types";
+import { MOVIES, Movie, STAR_TO_RATING, getYear, tmdbPoster } from "./types";
 import { Poster } from "./Poster";
 
 type Ranked = Movie & {
@@ -24,14 +25,14 @@ type Ranked = Movie & {
   lastChangedRound: number;
 };
 
-const INITIAL_RATING = 1500;
+const FALLBACK_RATING = 1500;
 const INITIAL_RD = 350;
 const INITIAL_VOL = 0.06;
 
 const buildInitial = (): Ranked[] =>
   MOVIES.map((m) => ({
     ...m,
-    rating: INITIAL_RATING,
+    rating: STAR_TO_RATING[m.stars] ?? FALLBACK_RATING,
     rd: INITIAL_RD,
     vol: INITIAL_VOL,
     matches: 0,
@@ -145,10 +146,6 @@ export function Demo() {
     [items]
   );
 
-  const topScore = ranked[0]?.rating ?? INITIAL_RATING;
-  const bottomScore = ranked[ranked.length - 1]?.rating ?? INITIAL_RATING;
-  const spread = topScore - bottomScore;
-
   return (
     <section id="demo" className="border-t hairline">
       <div className="max-w-[1200px] mx-auto px-6 py-24">
@@ -158,12 +155,17 @@ export function Demo() {
               <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-3">
                 § 03 / try it out
               </div>
-              <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100">
+              <h2 className="font-syne font-extrabold text-4xl leading-[0.95] tracking-tight text-zinc-100">
                 don't think too hard. <br />
                 <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[8px]">
                   just pick.
                 </span>
               </h2>
+              <p className="mt-5 text-base text-zinc-400 leading-relaxed max-w-md">
+                when you log a movie, you first give it a quick star rating to
+                place it in a rough order.{" "}
+                <span className="text-zinc-200">then, the fun begins.</span>
+              </p>
             </div>
 
             <div className="rounded-2xl border hairline bg-[#111114] p-6 flex flex-col">
@@ -222,7 +224,7 @@ export function Demo() {
                   selected ? "opacity-100" : "opacity-0"
                 }`}
               >
-                tap again to confirm your pick
+                click again to confirm your pick
               </div>
             </div>
           </div>
@@ -247,13 +249,6 @@ export function Demo() {
                   const thumb = tmdbPoster(m.poster_path);
                   const justMoved = m.lastChangedRound === round && round > 0;
                   const delta = justMoved ? m.delta : 0;
-                  const pct =
-                    spread < 20
-                      ? 50
-                      : Math.max(
-                          4,
-                          ((m.rating - bottomScore) / spread) * 100
-                        );
 
                   return (
                     <li
@@ -283,11 +278,22 @@ export function Demo() {
                         <div className="text-sm font-semibold text-zinc-100 truncate">
                           {m.title}
                         </div>
-                        <div className="mt-1 h-[3px] rounded-full bg-zinc-800/80 overflow-hidden">
-                          <div
-                            className="h-full bg-zinc-200 transition-[width] duration-500 ease-out"
-                            style={{ width: `${pct}%` }}
-                          />
+                        <div
+                          className="mt-0.5 flex items-center gap-0.5"
+                          aria-label={`${m.stars} out of 5 stars`}
+                        >
+                          {[1, 2, 3, 4, 5].map((s) => (
+                            <Star
+                              key={s}
+                              size={10}
+                              strokeWidth={1.5}
+                              className={
+                                s <= m.stars
+                                  ? "fill-zinc-300 text-zinc-300"
+                                  : "fill-transparent text-zinc-700"
+                              }
+                            />
+                          ))}
                         </div>
                       </div>
                       <div className="flex items-center gap-2 min-w-[66px] justify-end">
@@ -324,10 +330,10 @@ export function Demo() {
 
             <p className="mt-5 text-sm text-zinc-500">
               {round === 0
-                ? "imagine you gave all these films 3/5 stars, they all start with 1500 points."
+                ? "At first, the star rating ranks them into a rough order. Pair comparisons refine them into a precise ranking."
                 : `${round} comparison${
                     round === 1 ? "" : "s"
-                  } in — the spread grows, the list gets truer.`}
+                  } in — your small choices help the list get more accurate.`}
             </p>
           </div>
         </div>

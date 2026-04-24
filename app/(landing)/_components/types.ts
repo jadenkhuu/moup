@@ -7,9 +7,20 @@ export type Movie = {
   poster_path: string | null;
   overview: string;
   vote_average: number;
+  stars: number;
 };
 
 export const MOVIES: Movie[] = demoMoviesData;
+
+// Mirrors the real app's seed ratings in app/(main)/watched/actions.ts
+export const STAR_TO_RATING: Record<number, number> = {
+  0: 900,
+  1: 1100,
+  2: 1300,
+  3: 1500,
+  4: 1700,
+  5: 1900,
+};
 
 export const getYear = (releaseDate: string) =>
   releaseDate ? new Date(releaseDate).getFullYear() : 0;
