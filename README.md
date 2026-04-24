@@ -2,6 +2,8 @@
 
 https://moup.app/
 
+View the landing page on the website before reading this
+
 moup is a simple movie search and tracker app, but with a twist. It evolves beyond the traditional 1-5 star rating system for a pairwise comparison engine that builds a comprehensive, perfectly beautiful ranking of your favorite films.
 
 <img width="2224" height="999" alt="567219576-95ae7d7e-b18e-48b4-a222-1c8ddf40f8cd" src="https://github.com/user-attachments/assets/7b048afe-b093-40e9-af77-97cfdda2ee93" />
