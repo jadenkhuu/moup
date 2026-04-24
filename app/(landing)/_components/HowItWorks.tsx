@@ -90,8 +90,8 @@ export function HowItWorks() {
       <div className="max-w-[1200px] mx-auto px-6 py-24">
         <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
           <div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-3">
-              § 02 / how it works
+            <div className="font-mono text-[13px] uppercase tracking-[0.25em] text-zinc-500 mb-3">
+              02 / how it works
             </div>
             <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100">
               only a few clicks to a <br />

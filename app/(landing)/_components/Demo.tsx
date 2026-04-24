@@ -152,8 +152,8 @@ export function Demo() {
         <div className="grid lg:grid-cols-2 gap-6">
           <div className="flex flex-col gap-10">
             <div>
-              <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-3">
-                § 03 / try it out
+              <div className="font-mono text-[13px] uppercase tracking-[0.25em] text-zinc-500 mb-3">
+                03 / try it out
               </div>
               <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100 select-none">
                 don't think too hard. <br />

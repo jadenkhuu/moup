@@ -8,8 +8,8 @@ export function WhyBroken() {
       <div className="max-w-[1200px] mx-auto px-6 py-24">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div className="lg:sticky lg:top-24">
-            <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-4">
-              § 01 / why pairwise
+            <div className="font-mono text-[13px] uppercase tracking-[0.25em] text-zinc-500 mb-4">
+              01 / why pairwise
             </div>
             <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100 select-none">
               the 1–10 scale <br />

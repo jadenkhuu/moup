@@ -19,7 +19,7 @@ export function Features() {
     <section id="features" className="border-t hairline bg-[#0b0b0d]">
       <div className="max-w-[1200px] mx-auto px-6 py-24">
         <div className="mb-14">
-          <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-3">§ 04 / features</div>
+          <div className="font-mono text-[13px] uppercase tracking-[0.25em] text-zinc-500 mb-3">04 / features</div>
           <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100">
             built for{" "}
             <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[8px]">
