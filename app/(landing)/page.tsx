@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowDown,
@@ -17,27 +18,24 @@ import {
   User,
   X,
 } from "lucide-react";
+import demoMoviesData from "./demoMovies.json";
 
 type Movie = {
   id: number;
   title: string;
-  year: number;
-  hue: number;
-  accent: string;
+  release_date: string;
+  poster_path: string | null;
+  overview: string;
+  vote_average: number;
 };
 
-const MOVIES: Movie[] = [
-  { id: 1, title: "the lost harbor", year: 2019, hue: 220, accent: "#3a4a66" },
-  { id: 2, title: "slow letters", year: 2022, hue: 18, accent: "#6b3a2a" },
-  { id: 3, title: "nine summers", year: 2016, hue: 140, accent: "#2f4a38" },
-  { id: 4, title: "the quiet room", year: 2021, hue: 280, accent: "#4a2f5a" },
-  { id: 5, title: "midnight fields", year: 2018, hue: 250, accent: "#2c2f55" },
-  { id: 6, title: "paper crowns", year: 2023, hue: 40, accent: "#6b5a2a" },
-  { id: 7, title: "the cartographer", year: 2020, hue: 200, accent: "#2a4a6b" },
-  { id: 8, title: "violets in june", year: 2017, hue: 310, accent: "#5a2a55" },
-  { id: 9, title: "a brief winter", year: 2024, hue: 180, accent: "#2a5a5a" },
-  { id: 10, title: "the long drive", year: 2015, hue: 10, accent: "#5a3a2a" },
-];
+const MOVIES: Movie[] = demoMoviesData;
+
+const getYear = (releaseDate: string) =>
+  releaseDate ? new Date(releaseDate).getFullYear() : 0;
+
+const tmdbPoster = (path: string | null, size: "w342" | "w500" = "w342") =>
+  path ? `https://image.tmdb.org/t/p/${size}${path}` : null;
 
 const GithubIcon = ({ size = 20, className = "" }: { size?: number; className?: string }) => (
   <svg
@@ -56,44 +54,24 @@ const GithubIcon = ({ size = 20, className = "" }: { size?: number; className?: 
   </svg>
 );
 
-const Poster = ({
-  movie,
-  big = false,
-}: {
-  movie: Movie;
-  big?: boolean;
-}) => {
-  const style = {
-    backgroundColor: "#131316",
-    backgroundImage: `
-      radial-gradient(120% 80% at 50% -10%, ${movie.accent}66, transparent 55%),
-      linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 14px),
-      linear-gradient(180deg, #1a1a1e 0%, #0f0f11 100%)
-    `,
-  };
+const Poster = ({ movie }: { movie: Movie }) => {
+  const src = tmdbPoster(movie.poster_path);
   return (
-    <div className="poster relative w-full aspect-[2/3] overflow-hidden" style={style}>
-      <div className="absolute inset-0 flex flex-col justify-between p-3">
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">poster</span>
-          <span className="font-mono text-[10px] text-zinc-600">#{String(movie.id).padStart(3, "0")}</span>
+    <div className="poster relative w-full aspect-[2/3] overflow-hidden bg-zinc-900">
+      {src ? (
+        <Image
+          src={src}
+          alt={movie.title}
+          fill
+          className="object-cover select-none pointer-events-none"
+          sizes="(max-width: 768px) 50vw, 342px"
+          unoptimized
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-zinc-600 text-xs">
+          No Poster
         </div>
-        <div>
-          <div
-            className={`font-syne font-extrabold leading-[0.95] text-zinc-200 ${
-              big ? "text-3xl" : "text-lg"
-            }`}
-          >
-            {movie.title}
-          </div>
-          <div className="font-mono text-[10px] text-zinc-500 mt-1.5">{movie.year}</div>
-        </div>
-      </div>
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 flex flex-col justify-evenly py-2 bg-black/40">
-        {Array.from({ length: big ? 10 : 7 }).map((_, i) => (
-          <div key={i} className="w-1 h-1 bg-zinc-700 rounded-[1px] mx-auto" />
-        ))}
-      </div>
+      )}
     </div>
   );
 };
@@ -142,6 +120,7 @@ function Hero() {
       [MOVIES[2], MOVIES[3]],
       [MOVIES[4], MOVIES[5]],
       [MOVIES[6], MOVIES[7]],
+      [MOVIES[8], MOVIES[9]],
     ],
     []
   );
@@ -172,12 +151,7 @@ function Hero() {
 
       <div className="max-w-[1200px] mx-auto px-6 pt-20 pb-28 grid lg:grid-cols-[1.05fr_1fr] gap-16 items-center relative">
         <div>
-          <div className="inline-flex items-center gap-2 chip rounded-full px-3 py-1.5 text-xs text-zinc-400 mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-soft" />
-            now ranking <span className="font-mono text-zinc-500">247,318</span> films
-          </div>
-
-          <h1 className="font-syne font-extrabold text-[clamp(2.25rem,4.8vw,4.25rem)] leading-[0.95] tracking-tight text-zinc-100">
+          <h1 className="mt-16 font-syne font-extrabold text-[clamp(2.25rem,4.8vw,4.25rem)] leading-[0.95] tracking-tight text-zinc-100">
             stop rating movies.
             <br />
             <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[10px]">
@@ -264,7 +238,7 @@ function Hero() {
                       <div className="text-zinc-100 font-bold text-sm leading-tight line-clamp-2">{m.title}</div>
                       <div className="flex items-center gap-1 text-zinc-500 mt-1">
                         <Calendar size={11} />
-                        <span className="text-[11px]">{m.year}</span>
+                        <span className="text-[11px]">{getYear(m.release_date)}</span>
                       </div>
                     </div>
                   </button>
@@ -363,22 +337,36 @@ function WhyBroken() {
                 </span>
               </div>
               <div className="space-y-2">
-                {MOVIES.slice(0, 6).map((m, i) => (
-                  <div key={m.id} className="flex items-center gap-3 rounded-lg hover:bg-zinc-900/40 p-1.5">
-                    <span className="font-mono text-[11px] text-zinc-500 w-6">#{String(i + 1).padStart(2, "0")}</span>
-                    <div className="w-9 h-14 rounded-sm poster" style={{ backgroundColor: m.accent }} />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-semibold text-zinc-100 truncate">{m.title}</div>
-                      <div className="flex items-center gap-1 text-zinc-500">
-                        <Calendar size={10} />
-                        <span className="text-[10px] font-mono">{m.year}</span>
+                {MOVIES.slice(0, 6).map((m, i) => {
+                  const thumb = tmdbPoster(m.poster_path);
+                  return (
+                    <div key={m.id} className="flex items-center gap-3 rounded-lg hover:bg-zinc-900/40 p-1.5">
+                      <span className="font-mono text-[11px] text-zinc-500 w-6">#{String(i + 1).padStart(2, "0")}</span>
+                      <div className="relative w-9 h-14 rounded-sm overflow-hidden bg-zinc-800 shrink-0">
+                        {thumb && (
+                          <Image
+                            src={thumb}
+                            alt={m.title}
+                            fill
+                            className="object-cover"
+                            sizes="36px"
+                            unoptimized
+                          />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-semibold text-zinc-100 truncate">{m.title}</div>
+                        <div className="flex items-center gap-1 text-zinc-500">
+                          <Calendar size={10} />
+                          <span className="text-[10px] font-mono">{getYear(m.release_date)}</span>
+                        </div>
+                      </div>
+                      <div className="font-mono text-[11px] text-zinc-400 tabular-nums">
+                        {(2400 - i * 47 - i * i * 3).toString()}
                       </div>
                     </div>
-                    <div className="font-mono text-[11px] text-zinc-400 tabular-nums">
-                      {(2400 - i * 47 - i * i * 3).toString()}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               <p className="mt-5 text-xs text-zinc-500">every film gets a distinct position. no ties, no fake averages.</p>
             </div>
@@ -400,12 +388,15 @@ function HowItWorks() {
         <div className="relative rounded-xl border hairline bg-[#0f0f12] p-3">
           <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-900/70 border hairline">
             <Search size={14} className="text-zinc-500" />
-            <span className="text-sm text-zinc-300 font-mono">the lost harbor</span>
+            <span className="text-sm text-zinc-300 font-mono">{MOVIES[0].title.toLowerCase()}</span>
             <span className="ml-auto text-[10px] text-zinc-600 font-mono">↵</span>
           </div>
           <div className="grid grid-cols-3 gap-2 mt-3">
-            {MOVIES.slice(0, 3).map((m) => (
-              <div key={m.id} className="rounded-md overflow-hidden">
+            {MOVIES.slice(0, 3).map((m, idx) => (
+              <div
+                key={m.id}
+                className={`rounded-md overflow-hidden ${idx === 0 ? "" : "blur-sm opacity-50"}`}
+              >
                 <Poster movie={m} />
               </div>
             ))}
@@ -422,7 +413,7 @@ function HowItWorks() {
         <div className="relative rounded-xl border hairline bg-[#0f0f12] p-3">
           <div className="grid grid-cols-2 gap-2">
             <div className="rounded-md overflow-hidden border-2 border-zinc-100">
-              <Poster movie={MOVIES[2]} />
+              <Poster movie={MOVIES[0]} />
             </div>
             <div className="rounded-md overflow-hidden border hairline opacity-70">
               <Poster movie={MOVIES[3]} />
@@ -441,14 +432,28 @@ function HowItWorks() {
       icon: <CircleCheck size={22} />,
       visual: (
         <div className="relative rounded-xl border hairline bg-[#0f0f12] p-3 space-y-1.5">
-          {MOVIES.slice(0, 4).map((m, i) => (
-            <div key={m.id} className="flex items-center gap-2">
-              <span className="font-mono text-[10px] text-zinc-500 w-5">#{i + 1}</span>
-              <div className="w-5 h-7 rounded-sm" style={{ background: m.accent }} />
-              <span className="text-xs text-zinc-200 truncate flex-1">{m.title}</span>
-              <span className="text-[10px] font-mono text-zinc-400 tabular-nums">{2400 - i * 47}</span>
-            </div>
-          ))}
+          {MOVIES.slice(0, 4).map((m, i) => {
+            const thumb = tmdbPoster(m.poster_path);
+            return (
+              <div key={m.id} className="flex items-center gap-2">
+                <span className="font-mono text-[10px] text-zinc-500 w-5">#{i + 1}</span>
+                <div className="relative w-5 h-7 rounded-sm overflow-hidden bg-zinc-800 shrink-0">
+                  {thumb && (
+                    <Image
+                      src={thumb}
+                      alt={m.title}
+                      fill
+                      className="object-cover"
+                      sizes="20px"
+                      unoptimized
+                    />
+                  )}
+                </div>
+                <span className="text-xs text-zinc-200 truncate flex-1">{m.title}</span>
+                <span className="text-[10px] font-mono text-zinc-400 tabular-nums">{2400 - i * 47}</span>
+              </div>
+            );
+          })}
         </div>
       ),
     },
