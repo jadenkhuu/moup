@@ -35,8 +35,9 @@ export function Features() {
               <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500">rating engine</span>
             </div>
             <h3 className="font-syne font-extrabold text-3xl text-zinc-100">glicko-2 under the hood</h3>
-            <p className="mt-3 text-zinc-400 max-w-md">
-              the same rating system used for competitive chess. every comparison updates a confidence interval, so your
+            <p className="mt-3 text-zinc-400">
+              the same rating system used for competitive chess. every comparison updates a 
+              confidence interval, so your
               top 10 stabilizes fast — but stays responsive to new takes.
             </p>
 
@@ -79,7 +80,7 @@ export function Features() {
               <ListPlus size={16} className="text-zinc-300" />
               <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500">watchlist</span>
             </div>
-            <h3 className="font-syne font-extrabold text-2xl text-zinc-100">keep a running list</h3>
+            <h3 className="font-syne font-extrabold text-2xl text-zinc-100">keep a watchlist</h3>
             <p className="mt-2 text-sm text-zinc-400">
               save what you want to watch next. one tap to promote a film into your watched ranking.
             </p>

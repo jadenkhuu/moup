@@ -99,27 +99,27 @@ export function Hero() {
               start ranking — it&apos;s free
               <ArrowRight size={16} strokeWidth={2.5} />
             </Link>
-            {/* <a
+            <a
               href="#why"
               className="inline-flex items-center gap-2 text-zinc-300 rounded-xl px-4 py-3 text-sm font-medium border hairline hover:border-zinc-600 hover:text-zinc-100 transition-colors"
             >
               the problem
               <ArrowDown size={14} />
             </a>
-            <a
+            {/* <a
               href="#how"
               className="inline-flex items-center gap-2 text-zinc-300 rounded-xl px-4 py-3 text-sm font-medium border hairline hover:border-zinc-600 hover:text-zinc-100 transition-colors"
             >
               how it works
               <ArrowDown size={14} />
             </a> */}
-            <a
+            {/* <a
               href="#demo"
               className="inline-flex items-center gap-2 text-zinc-300 rounded-xl px-4 py-3 text-sm font-medium border hairline hover:border-zinc-600 hover:text-zinc-100 transition-colors"
             >
               try it out
               <ArrowDown size={14} />
-            </a>
+            </a> */}
           </div>
 
           <div className="mt-10 flex items-center gap-6 text-xs text-zinc-500 font-mono uppercase tracking-wider">
@@ -199,8 +199,18 @@ export function Hero() {
                 selected ? "opacity-100" : "opacity-0"
               }`}
             >
-              click it again to confirm the selection
+              click it again to confirm your pick
             </div>
+          </div>
+
+          <div className="mt-4 flex justify-center">
+            <a
+              href="#demo"
+              className="inline-flex items-center gap-2 text-zinc-300 rounded-xl px-4 py-3 text-sm font-medium border hairline hover:border-zinc-600 hover:text-zinc-100 transition-colors"
+            >
+              try out the real demo
+              <ArrowDown size={14} />
+            </a>
           </div>
 
           <div className="hidden lg:flex absolute -left-8 top-1/2 -translate-y-1/2 items-center gap-2 -rotate-90 origin-center">

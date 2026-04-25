@@ -146,21 +146,32 @@ export function Demo() {
     [items]
   );
 
+  const { minRating, ratingRange } = useMemo(() => {
+    const ratings = items.map((m) => m.rating);
+    const min = Math.min(...ratings);
+    const max = Math.max(...ratings);
+    return { minRating: min, ratingRange: Math.max(1, max - min) };
+  }, [items]);
+
   return (
     <section id="demo" className="border-t hairline">
       <div className="max-w-[1200px] mx-auto px-6 py-24">
         <div className="grid lg:grid-cols-2 gap-6">
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-6">
             <div>
               <div className="font-mono text-[13px] uppercase tracking-[0.25em] text-zinc-500 mb-3">
                 03 / try it out
               </div>
-              <h2 className="font-syne font-extrabold text-5xl leading-[0.95] tracking-tight text-zinc-100 select-none">
+              <h2 className="font-syne font-extrabold text-4xl leading-[0.95] tracking-tight text-zinc-100 select-none">
                 don't think too hard. <br />
                 <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[8px]">
                   just pick.
                 </span>
               </h2>
+              <p className="mt-5 text-base text-zinc-400 leading-relaxed max-w-md">
+                when you log a movie, a quick 1–5 rating ranks it roughly — comparisons take it
+                from there.
+              </p>
             </div>
 
             <div className="rounded-2xl border hairline bg-[#111114] p-6 flex flex-col">
@@ -289,6 +300,20 @@ export function Demo() {
                               }
                             />
                           ))}
+                        </div>
+                        <div
+                          className="mt-1.5 h-px w-full bg-zinc-800/70 overflow-hidden rounded-full"
+                          aria-hidden
+                        >
+                          <div
+                            className="h-full bg-zinc-500/60 transition-[width] duration-500 ease-out"
+                            style={{
+                              width: `${Math.max(
+                                3,
+                                ((m.rating - minRating) / ratingRange) * 100
+                              )}%`,
+                            }}
+                          />
                         </div>
                       </div>
                       <div className="flex items-center gap-2 min-w-[66px] justify-end">
