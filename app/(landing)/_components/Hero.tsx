@@ -63,10 +63,9 @@ export function Hero() {
 
       <div className="max-w-[1200px] mx-auto px-6 pt-14 pb-28 grid lg:grid-cols-[1.05fr_1fr] gap-16 items-center relative">
         <div>
-          <h1 className="mt-8 font-syne font-extrabold text-[clamp(2rem,4.2vw,3.75rem)] leading-[0.95] tracking-tight text-zinc-100">
-            stop rating movies.
-            <br />
-            <span className="text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[10px]">
+          <h1 className="mt-8 font-syne font-extrabold text-[clamp(1.5rem,3vw,2.75rem)] leading-[0.95] tracking-tight text-zinc-100">
+            <span className="block">stop just rating movies.</span>
+            <span className="mt-2 block text-zinc-100 underline decoration-zinc-500 decoration-[3px] underline-offset-[10px]">
               start comparing them.
             </span>
           </h1>
@@ -82,14 +81,16 @@ export function Hero() {
             </span>
           </div>
 
-          <p className="mt-6 text-lg text-zinc-400 max-w-xl leading-relaxed">
-            moup replaces the broken 1–10 rating with a single question:
-            <br />
-            <span className="text-zinc-200">do you like this or that?</span>
-            <br />
-            <br />
-            quick gut-feeling choices build a perfectly ordered list of your favorite films.
-          </p>
+          <div className="mt-6 max-w-xl text-zinc-400 leading-relaxed space-y-2">
+            <p>
+              moup replaces the broken 1–10 rating with a single question:{" "}
+              <br />
+              <span className="text-zinc-200">do you like this or that?</span>
+            </p>
+            <p>
+              quick gut-feeling choices build a perfectly ordered list of your favorite films.
+            </p>
+          </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link
@@ -103,7 +104,7 @@ export function Hero() {
               href="#why"
               className="inline-flex items-center gap-2 text-zinc-300 rounded-xl px-4 py-3 text-sm font-medium border hairline hover:border-zinc-600 hover:text-zinc-100 transition-colors"
             >
-              the problem
+              why pairwise
               <ArrowDown size={14} />
             </a>
             {/* <a
@@ -146,11 +147,11 @@ export function Hero() {
                 <span className="text-zinc-600">/</span>
                 <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest">pairwise</span>
               </div>
-              <div className="font-mono text-[10px] text-zinc-500 tabular-nums tracking-widest">
+              {/* <div className="font-mono text-[10px] text-zinc-500 tabular-nums tracking-widest">
                 <span className="text-zinc-300">{String(i + 1).padStart(2, "0")}</span>
                 <span className="text-zinc-700 mx-1">/</span>
                 <span className="text-zinc-600">∞</span>
-              </div>
+              </div> */}
             </div>
 
             <p className="text-center text-xs text-zinc-500 font-medium tracking-[0.2em] uppercase mb-5">

@@ -169,7 +169,7 @@ export function Demo() {
                 </span>
               </h2>
               <p className="mt-5 text-base text-zinc-400 leading-relaxed max-w-md">
-                when you log a movie, a quick 1–5 rating ranks it roughly — comparisons take it
+                when you log a movie, a quick 1–5 rating ranks it roughly — pairwise comparisons take it
                 from there.
               </p>
             </div>
