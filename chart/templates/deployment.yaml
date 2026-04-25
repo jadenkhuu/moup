@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Release.Namespace }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Release.Namespace }}
+    spec:
+      containers:
+      - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        name: {{ .Release.Name }}-{{ .Release.Namespace }}
+        env:
+          - name: TMDB_ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretName }}
+                key: TMDB_ACCESS_TOKEN
+          - name: NEXT_PUBLIC_SUPABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretName }}
+                key: NEXT_PUBLIC_SUPABASE_URL
+          - name: NEXT_PUBLIC_SUPABASE_ANON_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretName }}
+                key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          seccompProfile:
+            type: RuntimeDefault
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL

@@ -1,0 +1,16 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ .Release.Name }}-{{ .Release.Namespace }}-httproute
+spec:
+  parentRefs:
+    - name: {{ .Values.gateway.parentRefsName }}
+      namespace: {{ .Values.gateway.parentRefsNamespace }}
+  hostnames:
+    - {{ .Values.host }}
+    - asd.com
+  rules:
+    - backendRefs:
+        - name: {{ .Release.Name }}-{{ .Release.Namespace }}-svc
+          port: 3000

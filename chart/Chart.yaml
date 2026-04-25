@@ -1,0 +1,8 @@
+apiVersion: v2
+name: moup-app
+version: 0.1
+home: https://github.com/jadenkhuu/moup
+
+maintainers:
+  - name: Alex Dinh
+    email: alex.dinh@lexdsolutions.com

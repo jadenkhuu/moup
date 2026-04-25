@@ -1,0 +1,14 @@
+image:
+  name: jadenkhuu/moup-app
+  tag: "1.0"
+
+secretName: jaden-moup-app
+
+deployment:
+  replicas: 1
+
+host: moup.app
+
+gateway:
+  parentRefsName: kgateway-proxy
+  parentRefsNamespace: kgateway-system
