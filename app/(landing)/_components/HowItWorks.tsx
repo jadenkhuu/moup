@@ -8,7 +8,7 @@ export function HowItWorks() {
     {
       n: "01",
       title: "search & add",
-      copy: "find any film from the tmdb catalog. drop it into your watched list or a watchlist to come back to.",
+      copy: "find any film from the tmdb catalog. drop it into your list to come back to.",
       icon: <Search size={22} />,
       visual: (
         <div className="relative rounded-xl border hairline bg-[#0f0f12] p-3">
@@ -33,7 +33,7 @@ export function HowItWorks() {
     {
       n: "02",
       title: "this or that",
-      copy: "moup picks two of your films and asks which you preferred. tap one. tap it again to confirm. that's it.",
+      copy: "moup picks two of your watched/ranked films and asks which you preferred. choose one. click it again to confirm.",
       icon: <Swords size={22} />,
       visual: (
         <div className="relative rounded-xl border hairline bg-[#0f0f12] p-3">
@@ -54,7 +54,7 @@ export function HowItWorks() {
     {
       n: "03",
       title: "see your ranking",
-      copy: "a glicko-2 rating engine works behind every tap, reshuffling your list in real time into a true, honest order.",
+      copy: "a glicko-2 rating engine works behind every choice, reshuffling your list in real time into a true, honest order.",
       icon: <CircleCheck size={22} />,
       visual: (
         <div className="relative rounded-xl border hairline bg-[#0f0f12] p-3 space-y-1.5">
