@@ -40,11 +40,19 @@ export default async function WatchedPage() {
   const watchlistSet = new Set((watchlistRows ?? []).map((r: { movie_id: number }) => r.movie_id));
   const sorted = (rows ?? []) as WatchedRow[];
 
+  // Normalize ratings into a 0–100% bar width, relative to the lowest and
+  // highest rating across the whole list (mirrors the landing-page demo).
+  const ratingValues = sorted.map((row) => row.rating ?? 1500);
+  const minRating = ratingValues.length ? Math.min(...ratingValues) : 0;
+  const maxRating = ratingValues.length ? Math.max(...ratingValues) : 0;
+  const ratingRange = Math.max(1, maxRating - minRating);
+
   let rank = 1;
   const movies = sorted.map((row, i) => {
     if (i > 0 && (row.rating ?? 0) < (sorted[i - 1].rating ?? 0)) {
       rank = i + 1;
     }
+    const rating = row.rating ?? 1500;
     return {
       movie: {
         id: row.movie_id,
@@ -56,7 +64,8 @@ export default async function WatchedPage() {
       } as Movie,
       rank,
       stars: row.stars ?? 0,
-      rating: row.rating ?? 1500,
+      rating,
+      ratingPercent: Math.max(3, ((rating - minRating) / ratingRange) * 100),
       isInWatchlist: watchlistSet.has(row.movie_id),
     };
   });

@@ -18,6 +18,7 @@ interface WatchedMovie {
   rank: number;
   stars: number;
   rating: number;
+  ratingPercent: number;
   isInWatchlist: boolean;
 }
 
@@ -94,13 +95,14 @@ export default function WatchedClientPage({ movies }: WatchedClientPageProps) {
         ) : (
           <div className="pl-2 pr-5 pt-5 pb-32">
             <div className="flex flex-col gap-2">
-              {filtered.map(({ movie, rank, stars, rating, isInWatchlist }) => (
+              {filtered.map(({ movie, rank, stars, rating, ratingPercent, isInWatchlist }) => (
                 <WatchedMovieCard
                   key={movie.id}
                   movie={movie}
                   rank={rank}
                   stars={stars}
                   rating={rating}
+                  ratingPercent={ratingPercent}
                   isInWatchlist={isInWatchlist}
                 />
               ))}

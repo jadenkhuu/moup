@@ -16,6 +16,7 @@ interface WatchedMovieCardProps {
   rank: number;
   stars?: number;
   rating?: number;
+  ratingPercent?: number;
   isInWatchlist?: boolean;
 }
 
@@ -26,7 +27,7 @@ function rankColor(rank: number) {
   return 'text-zinc-400';
 }
 
-export const WatchedMovieCard = ({ movie, rank, stars = 0, rating, isInWatchlist = false }: WatchedMovieCardProps) => {
+export const WatchedMovieCard = ({ movie, rank, stars = 0, rating, ratingPercent, isInWatchlist = false }: WatchedMovieCardProps) => {
   const [inWatchlist, setInWatchlist] = useState(isInWatchlist);
   const [isWatched, setIsWatched] = useState(true);
   const [isRatingOpen, setIsRatingOpen] = useState(false);
@@ -79,7 +80,13 @@ export const WatchedMovieCard = ({ movie, rank, stars = 0, rating, isInWatchlist
             <p title={movie.title} className="text-zinc-100 font-semibold text-sm leading-snug group-hover:text-white transition-colors">
               {movie.title}
             </p>            
-            <div className="flex items-center gap-2">              
+            {movie.release_date && (
+              <div className="flex items-center gap-1 text-zinc-500">
+                <Calendar size={10} />
+                <span className="text-[11px]">{new Date(movie.release_date).getFullYear()}</span>
+              </div>
+            )}
+            <div className="flex items-center gap-2">
               {stars > 0 && (
                 <div className="flex items-center gap-0.5">
                   {[1, 2, 3, 4, 5].map((s) => (
@@ -98,10 +105,12 @@ export const WatchedMovieCard = ({ movie, rank, stars = 0, rating, isInWatchlist
                 </span>
               )}
             </div>
-            {movie.release_date && (
-              <div className="flex items-center gap-1 text-zinc-500">
-                <Calendar size={10} />
-                <span className="text-[11px]">{new Date(movie.release_date).getFullYear()}</span>
+            {ratingPercent !== undefined && (
+              <div className="mt-1 h-px w-full bg-zinc-800/70 overflow-hidden rounded-full" aria-hidden>
+                <div
+                  className="h-full bg-zinc-500/60 transition-[width] duration-500 ease-out"
+                  style={{ width: `${ratingPercent}%` }}
+                />
               </div>
             )}
           </div>
