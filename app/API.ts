@@ -1,11 +1,11 @@
 'use server'
 
-import { Movie, MovieDetails, TMDBResponse } from '@/types/tmdb';
+import { Movie, MovieCategory, MovieDetails, TMDBResponse } from '@/types/tmdb';
 
 const accessToken = process.env.TMDB_ACCESS_TOKEN;
 
-export async function fetchMovies(page: number): Promise<Movie[]> {
-  
+export async function fetchMovies(page: number, category: MovieCategory = 'popular'): Promise<Movie[]> {
+
   if (!accessToken) {
     console.error("TMDB Access Token is missing");
     return [];
@@ -13,7 +13,7 @@ export async function fetchMovies(page: number): Promise<Movie[]> {
 
   try {
     const res = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
+      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=${page}`,
       { 
         method: 'GET',
         headers: {

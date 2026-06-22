@@ -3,17 +3,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { fetchMovies, searchMovies } from '@/app/API';
-import { Movie } from '@/types/tmdb';
-import { MovieCard } from './MovieCard'; 
+import { Movie, MovieCategory } from '@/types/tmdb';
+import { MovieCard } from './MovieCard';
 
 interface MovieGridProps {
   initialMovies: Movie[];
   searchQuery?: string;
+  category?: MovieCategory;
   watchlistIds?: number[];
   watchedIds?: number[];
 }
 
-export default function MovieGrid({ initialMovies, searchQuery = '', watchlistIds = [], watchedIds = [] }: MovieGridProps) {
+export default function MovieGrid({ initialMovies, searchQuery = '', category = 'popular', watchlistIds = [], watchedIds = [] }: MovieGridProps) {
   const [movies, setMovies] = useState<Movie[]>(initialMovies);
   const [page, setPage] = useState(1);
   const watchlistSet = new Set(watchlistIds);
@@ -30,9 +31,9 @@ export default function MovieGrid({ initialMovies, searchQuery = '', watchlistId
     setMovies(initialMoviesRef.current);
     setPage(1);
     setHasMore(initialMoviesRef.current.length === 20);
-  // Only reset the list when the search query changes, not on every prop re-render
+  // Only reset the list when the search query or category changes, not on every prop re-render
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery]);
+  }, [searchQuery, category]);
 
   useEffect(() => {
     if (inView && hasMore) {
@@ -44,7 +45,7 @@ export default function MovieGrid({ initialMovies, searchQuery = '', watchlistId
     const nextPage = page + 1;
     const newMovies = searchQuery
       ? await searchMovies(searchQuery, nextPage)
-      : await fetchMovies(nextPage);
+      : await fetchMovies(nextPage, category);
     
     if (newMovies && newMovies.length > 0) {
       setMovies((prev) => {

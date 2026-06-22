@@ -1,3 +1,5 @@
+export type MovieCategory = 'popular' | 'now_playing' | 'upcoming' | 'top_rated';
+
 export interface Movie {
   id: number;
   title: string;
