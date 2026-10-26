@@ -18,13 +18,6 @@ spec:
             - name: content-encoding
               type: RegularExpression
               value: "(?i).*br.*"
-        - path:
-            type: Exact
-            value: /_next/image
-          queryParams:
-            - name: url
-              type: RegularExpression
-              value: "(?i)^http.*"
       filters:
         - type: ExtensionRef
           extensionRef:
