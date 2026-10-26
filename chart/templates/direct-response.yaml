@@ -1,0 +1,9 @@
+---
+apiVersion: gateway.kgateway.dev/v1alpha1
+kind: DirectResponse
+metadata:
+  name: block-node2shell
+  namespace: prod
+spec:
+  status: 403
+  body: "Forbidden"

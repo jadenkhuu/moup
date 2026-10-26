@@ -9,8 +9,28 @@ spec:
       namespace: {{ .Values.gateway.parentRefsNamespace }}
   hostnames:
     - {{ .Values.host }}
-    - asd.com
   rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+          headers:
+            - name: content-encoding
+              type: RegularExpression
+              value: "(?i).*br.*"
+        - path:
+            type: Exact
+            value: /_next/image
+          queryParams:
+            - name: url
+              type: RegularExpression
+              value: "(?i)^http.*"
+      filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: gateway.kgateway.dev
+            kind: DirectResponse
+            name: block-node2shell
     - backendRefs:
         - name: {{ .Release.Name }}-{{ .Release.Namespace }}-svc
           port: 3000
